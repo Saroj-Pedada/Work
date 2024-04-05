@@ -19,41 +19,26 @@ const addCampQuery = async (reqParams, res) => {
 
 const getCampsQuery = async (reqParams, res) => {
   try {
-    // Create a JWT authentication instance
     const serviceAccountAuth = new JWT({
-      email: "healthcamps@healthcamps-419018.iam.gserviceaccount.com",
-      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"), // Replace escaped newline characters
+      email: process.env.GOOGLE_PRIVATE_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
-
-    // Instantiate GoogleSpreadsheet with authentication
     const doc = new GoogleSpreadsheet(
       "16ZnlvkjiOIAPpxl542HZ9WyqYlcjQdkWauQYEARXrh0",
       serviceAccountAuth
     );
-
-    // Load spreadsheet information
     await doc.loadInfo();
-
-    // Find the sheet by index (assuming it's the first sheet)
     const sheet = doc.sheetsByIndex[0];
-
-    // Load all rows from the sheet
     await sheet.loadCells();
-
-    // Construct JSON object
     const rows = sheet.rowCount;
     const cols = sheet.columnCount;
     const data = [];
-
-    // Assuming first row is headers
     const headers = [];
-    for (let j = 0; j < cols; j++) { // Adjusted loop condition
-        const cell = sheet.getCell(0, j);
-        headers.push(cell.value);
+    for (let j = 0; j < cols; j++) {
+      const cell = sheet.getCell(0, j);
+      headers.push(cell.value);
     }
-
-    // Start from second row (index 1) as first row contains headers
     for (let i = 1; i < rows; i++) {
       const firstCell = sheet.getCell(i, 0);
       if (!firstCell.value) {
@@ -66,7 +51,6 @@ const getCampsQuery = async (reqParams, res) => {
       }
       data.push(rowData);
     }
-
     return data;
   } catch (error) {
     console.log(error);

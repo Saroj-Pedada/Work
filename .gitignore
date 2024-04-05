@@ -1,6 +1,7 @@
 node_modules/
 package-lock.json
 
+/frontend/.env
 /frontend/.pnp
 /frontend/.pnp.js
 /frontend/coverage

@@ -9,7 +9,7 @@ function Header() {
         </div>
         <div>
           {/* List of Links */}
-          <ul className='flex flex-row lg:gap-x-10 md:gap-x-5 sm:gap-x-3 gap-x-2'>
+          <ul className='text-black flex flex-row lg:gap-x-10 md:gap-x-5 sm:gap-x-3 gap-x-2'>
             <li>Register</li>
             <li>Camps</li>
             <li>Hospitals</li>
