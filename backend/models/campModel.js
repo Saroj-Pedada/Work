@@ -25,7 +25,7 @@ const getCampsQuery = async (reqParams, res) => {
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
     const doc = new GoogleSpreadsheet(
-      "16ZnlvkjiOIAPpxl542HZ9WyqYlcjQdkWauQYEARXrh0",
+      process.env.GOOGLE_SHEET_ID,
       serviceAccountAuth
     );
     await doc.loadInfo();

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HttpnInstance from "./Api/nodeapi";
+import Dropdown from "./Dropdown";
 
 function Registration() {
   const [campData, setCampData] = useState([]);
@@ -108,7 +109,10 @@ function Registration() {
         ></textarea>
         <div>Village</div>
         <select
-          className="w-full rounded-lg h-10 px-2 focus:ring-[#007aff] focus:outline-none"
+          className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
+                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
+                    sm:text-sm sm:leading-6"
           value={selectedVillage}
           onChange={(e) => setSelectedVillage(e.target.value)}
         >
@@ -122,7 +126,10 @@ function Registration() {
         </select>
         <div>Camps Available</div>
         <select
-          className="w-full rounded-lg h-10 px-2 focus:ring-[#007aff] focus:outline-none"
+          className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
+                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
+                    sm:text-sm sm:leading-6"
           value={selectedCamp}
           onChange={(e) => setSelectedCamp(parseInt(e.target.value, 10))}
         >
@@ -149,7 +156,10 @@ function Registration() {
         ></textarea>
         <div>Gender</div>
         <select
-          className="w-full rounded-lg h-10 px-2 focus:ring-[#007aff] focus:outline-none"
+          className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
+                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
+                    sm:text-sm sm:leading-6"
           value={formData.Gender}
           onChange={(e) => setFormData({ ...formData, Gender: e.target.value })}
         >
@@ -176,6 +186,7 @@ function Registration() {
           </button>
         </div>
       </form>
+      {/* <Dropdown /> */}
     </div>
   );
 }
