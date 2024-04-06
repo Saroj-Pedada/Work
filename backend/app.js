@@ -6,6 +6,7 @@ const bb = require("express-busboy");
 
 const campsRouter = require("./routes/campsRouter");
 const registrationRouter = require("./routes/registrationRouter");
+const hospitalRouter = require("./routes/hospitalRouter");
 
 const app = express();
 
@@ -33,6 +34,7 @@ bb.extend(app, {
 
 app.use("/camps", campsRouter);
 app.use("/registration", registrationRouter);
+app.use("/hospital",hospitalRouter);
 
 app.listen(3002, () => {
   console.log("Server running...");
