@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HttpnInstance from "./Api/nodeapi";
 
-function Camps() {
+function Camps(props) {
   const [campData, setCampData] = useState([]);
 
   useEffect(() => {
@@ -15,10 +15,10 @@ function Camps() {
   }, []);
 
   return (
-    <div className="h-full w-full">
+    <div className="mt-5 h-full w-full">
       {/* <div className="w-full text-3xl">Camps</div> */}
-      <div class="flex flex-col w-full py-2 sm:px-6 lg:px-8">
-        <table class="text-center text-lg w-full text-surface text-slate-900">
+      <div class="flex flex-col items-center justify-center w-full py-2 sm:px-6 lg:px-8 md:overflow-x-scroll sm:overflow-x-scroll lg:overflow-x-hidden overflow-y-hidden">
+        <table class="text-center text-lg text-surface text-slate-900">
           <thead class="w-full border-b border-neutral-200 bg-neutral-50 font-medium border-white/10 text-neutral-800">
             <tr className="text-2xl font-black">
               <th scope="col" class="px-6 py-4">
@@ -41,7 +41,7 @@ function Camps() {
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {campData?.map((item) => {
               return (
                 <tr className="border-b border-neutral-200 border-white/10">

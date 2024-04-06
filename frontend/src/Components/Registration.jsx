@@ -79,8 +79,7 @@ function Registration() {
 
   return (
     <div className="flex items-center h-screen w-full flex-col justify-evenly">
-      <h1 className="text-3xl p-1">Registration</h1>
-      <form className="flex flex-col gap-y-4 lg:w-1/3 w-11/12 ring-2 ring-inset ring-gradient-to-r from-teal-500 to-emerald-400 p-5 rounded-md">
+      <form className="bg-white shadow-2xl flex flex-col gap-y-4 lg:w-1/3 w-11/12 ring-2 ring-inset ring-[#007aff] p-5 rounded-xl">
         <div>Full Name</div>
         <textarea
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
@@ -179,7 +178,7 @@ function Registration() {
         ></textarea>
         <div>
           <button
-            className="w-full rounded-lg h-10 px-2 bg-gradient-to-r from-teal-500 to-emerald-400 text-black font-semibold text-lg"
+            className="w-full rounded-lg h-10 px-2 bg-[#007aff] text-white font-semibold text-lg"
             onClick={handleFormSubmit}
           >
             Register
