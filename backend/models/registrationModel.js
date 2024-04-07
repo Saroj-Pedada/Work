@@ -44,6 +44,7 @@ const getRegistrationsQuery = async (reqParams, res) => {
 
 const addRegistrationQuery = async (reqParams, res) => {
   try {
+    const serialNumber = reqParams.id;
     const fullName = reqParams.FullName;
     const address = reqParams.Address;
     const village = reqParams.Village;
@@ -64,7 +65,6 @@ const addRegistrationQuery = async (reqParams, res) => {
     const sheet = doc.sheetsByIndex[1];
     await sheet.loadHeaderRow();
     const headers = sheet.headerValues;
-    const serialNumber = (await sheet.rowCount) + 1;
     const rowData = {};
     rowData[headers[0]] = serialNumber;
     rowData[headers[1]] = fullName;

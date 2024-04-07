@@ -34,7 +34,7 @@ function Header(props) {
 
   return (
     <div className='bg-blue-900 text-white py-4'>
-      <div className='container mx-auto'>
+      <div className='container px-3 mx-auto'>
         <div className='flex items-center justify-between'>
           <div className='text-lg font-semibold'>
             NGO Organisation

@@ -58,7 +58,15 @@ function Registration() {
 
   const handleFormSubmit = (e) => {
     e?.preventDefault();
-    console.log("Form Data --> ", formData);
+    if (
+      formData.FullName.trim() === "" ||
+      formData.Address.trim() === "" ||
+      formData.AadharNumber.trim() === "" ||
+      formData.Age.trim() === ""
+    ) {
+      alert("Please fill out all required fields");
+      return;
+    }
     try {
       HttpnInstance.post("/registration/addUserData", formData).then(() => {
         alert("Registration Successful");
@@ -78,34 +86,36 @@ function Registration() {
   };
 
   return (
-    <div className="flex items-center h-screen w-full flex-col justify-evenly">
-      <form className="bg-white shadow-2xl flex flex-col gap-y-4 lg:w-1/3 w-11/12 ring-2 ring-inset ring-[#007aff] p-5 rounded-xl">
+    <div className="flex items-center h-full py-5 w-full flex-col justify-evenly">
+      <form className="bg-white h-fit shadow-2xl flex flex-col gap-y-4 lg:w-1/2 w-11/12 ring-2 ring-inset ring-[#007aff] p-5 rounded-xl">
         <div>Full Name</div>
-        <textarea
+        <input
+          type="text"
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
                     shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
                     sm:text-sm sm:leading-6"
-          placeholder="Enter you full name"
-          required="true"
+          placeholder="Enter your full name"
+          required
           value={formData.FullName}
           onChange={(e) =>
             setFormData({ ...formData, FullName: e.target.value })
           }
-        ></textarea>
+        />
         <div>Address</div>
-        <textarea
+        <input
+          type="text"
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
                     shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
                     sm:text-sm sm:leading-6"
           placeholder="Enter your address"
-          value={formData.Address}
           required
+          value={formData.Address}
           onChange={(e) =>
             setFormData({ ...formData, Address: e.target.value })
           }
-        ></textarea>
+        />
         <div>Village</div>
         <select
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
@@ -141,7 +151,8 @@ function Registration() {
           })}
         </select>
         <div>Aadhar Number</div>
-        <textarea
+        <input
+          type="text"
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
                     shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
@@ -152,7 +163,7 @@ function Registration() {
           onChange={(e) =>
             setFormData({ ...formData, AadharNumber: e.target.value })
           }
-        ></textarea>
+        />
         <div>Gender</div>
         <select
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
@@ -166,7 +177,8 @@ function Registration() {
           <option>Female</option>
         </select>
         <div>Age</div>
-        <textarea
+        <input
+          type="number"
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
                     shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
@@ -175,7 +187,7 @@ function Registration() {
           placeholder="Age in years"
           value={formData.Age}
           onChange={(e) => setFormData({ ...formData, Age: e.target.value })}
-        ></textarea>
+        />
         <div>
           <button
             className="w-full rounded-lg h-10 px-2 bg-[#007aff] text-white font-semibold text-lg"

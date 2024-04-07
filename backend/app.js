@@ -15,8 +15,8 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
-app.use(cors(corsOptions));
 
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(bodyParser.json());
@@ -34,8 +34,9 @@ bb.extend(app, {
 
 app.use("/camps", campsRouter);
 app.use("/registration", registrationRouter);
-app.use("/hospital",hospitalRouter);
+app.use("/hospital", hospitalRouter);
 
-app.listen(3002, () => {
-  console.log("Server running...");
+const PORT = process.env.PORT || 3002;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
