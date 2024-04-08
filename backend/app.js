@@ -12,7 +12,7 @@ const hospitalRouter = require("./routes/hospitalRouter");
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:3002"],
+  origin: ["http://localhost:3000", "http://localhost:3002" , "https://medicalcamps-backend.vercel.app"],
   credentials: true,
   optionSuccessStatus: 200,
 };
