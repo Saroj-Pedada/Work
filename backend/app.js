@@ -12,7 +12,11 @@ const hospitalRouter = require("./routes/hospitalRouter");
 const app = express();
 
 const corsOptions = {
-  origin: ["http://localhost:3000", "http://localhost:3002" , "https://medicalcamps-backend.vercel.app"],
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3002",
+    "https://medicalcamps-backend.vercel.app",
+  ],
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -37,15 +41,20 @@ app.use("/camps", campsRouter);
 app.use("/registration", registrationRouter);
 app.use("/hospital", hospitalRouter);
 
-const JWT_SECRET = 'your_secret_key';
-const adminUser = { id: 1, username: 'admin', password: 'password' };
-app.post('/login', (req, res) => {
+const JWT_SECRET = "mysecretkey";
+const adminUser = { id: 1, username: "admin", password: "password" };
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.post("/login", (req, res) => {
   const { username, password } = req.body;
   if (username === adminUser.username && password === adminUser.password) {
-      const token = jwt.sign({ userId: adminUser.id }, JWT_SECRET);
-      res.json({ token });
+    const token = jwt.sign({ userId: adminUser.id }, JWT_SECRET);
+    res.json({ token });
   } else {
-      res.status(401).json({ message: 'Invalid username or password' });
+    res.status(401).json({ message: "Invalid username or password" });
   }
 });
 
