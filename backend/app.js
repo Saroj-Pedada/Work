@@ -3,6 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const bb = require("express-busboy");
+const jwt = require("jsonwebtoken");
 
 const campsRouter = require("./routes/campsRouter");
 const registrationRouter = require("./routes/registrationRouter");
@@ -35,6 +36,18 @@ bb.extend(app, {
 app.use("/camps", campsRouter);
 app.use("/registration", registrationRouter);
 app.use("/hospital", hospitalRouter);
+
+const JWT_SECRET = 'your_secret_key';
+const adminUser = { id: 1, username: 'admin', password: 'password' };
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === adminUser.username && password === adminUser.password) {
+      const token = jwt.sign({ userId: adminUser.id }, JWT_SECRET);
+      res.json({ token });
+  } else {
+      res.status(401).json({ message: 'Invalid username or password' });
+  }
+});
 
 const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {

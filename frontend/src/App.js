@@ -4,7 +4,7 @@ import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Hospitals from "./Components/Hospitals";
 import Registration from "./Components/Registration";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   const [active, setActive] = useState(1);
