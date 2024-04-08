@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:3002';
+const apiUrl = 'https://medicalcamp-backend.onrender.com';
 
 const HttpnInstance = axios.create({
   baseURL: apiUrl,

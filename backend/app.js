@@ -15,7 +15,7 @@ const corsOptions = {
   origin: [
     "http://localhost:3000",
     "http://localhost:3002",
-    "https://medicalcamps-backend.vercel.app",
+    "https://medicalcamp-backend.onrender.com",
   ],
   credentials: true,
   optionSuccessStatus: 200,
