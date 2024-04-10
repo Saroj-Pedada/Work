@@ -2,7 +2,7 @@ require("dotenv").config();
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const { JWT } = require("google-auth-library");
 
-const getRegistrationsQuery = async (reqParams, res) => {
+const getRegistrationsQuery = async () => {
   try {
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_PRIVATE_EMAIL,
@@ -44,7 +44,6 @@ const getRegistrationsQuery = async (reqParams, res) => {
 
 const addRegistrationQuery = async (reqParams, res) => {
   try {
-    const serialNumber = reqParams.id;
     const fullName = reqParams.FullName;
     const address = reqParams.Address;
     const village = reqParams.Village;
@@ -52,6 +51,8 @@ const addRegistrationQuery = async (reqParams, res) => {
     const gender = reqParams.Gender;
     const age = reqParams.Age;
     const campId = reqParams.CampId;
+    const Taluka = reqParams.Taluka;
+    const District = reqParams.District;
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_PRIVATE_EMAIL,
       key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -74,6 +75,8 @@ const addRegistrationQuery = async (reqParams, res) => {
     rowData[headers[5]] = gender;
     rowData[headers[6]] = age;
     rowData[headers[7]] = campId;
+    rowData[headers[8]] = Taluka;
+    rowData[headers[9]] = District;
     await sheet.addRow(rowData);
     return "Data has been added";
   } catch (error) {

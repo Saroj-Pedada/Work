@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const bb = require("express-busboy");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const campsRouter = require("./routes/campsRouter");
 const registrationRouter = require("./routes/registrationRouter");
@@ -57,6 +58,31 @@ app.post("/login", (req, res) => {
   } else {
     res.status(401).json({ message: "Invalid username or password" });
   }
+});
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'sarojpedada@gmail.com',
+    pass: process.env.PASS,
+  },
+});
+
+app.post('/send-email', (req, res) => {
+  const { to, subject, text } = req.body;
+  const mailOptions = {
+    to: to,
+    subject: subject,
+    text: text,
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error sending email');
+    } else {
+      res.status(200).send('Email sent successfully');
+    }
+  });
 });
 
 const PORT = process.env.PORT || 3002;
