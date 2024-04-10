@@ -3,10 +3,12 @@ import HttpnInstance from "./Api/nodeapi";
 
 function Camps(props) {
   const [campData, setCampData] = useState([]);
+  const [villages, setVillages] = useState([]);
 
   useEffect(() => {
     try {
       HttpnInstance.post("/camps/getCamps").then((response) => {
+        console.log(response.data)
         setCampData(response.data);
       });
     } catch (error) {
@@ -14,61 +16,26 @@ function Camps(props) {
     }
   }, []);
 
+  useEffect(() => {
+    setVillages([...new Set(campData.map(item => item.Village))]);
+  }, [campData])
+
   return (
-    <div className="mt-5 h-full w-full">
-      {/* <div className="w-full text-3xl">Camps</div> */}
-      <div class="flex flex-col items-center justify-center w-full py-2 sm:px-6 lg:px-8 md:overflow-x-scroll sm:overflow-x-scroll lg:overflow-x-hidden overflow-y-hidden">
-        <table class="text-center text-lg text-surface text-slate-900">
-          <thead class="w-full border-b border-neutral-200 bg-neutral-50 font-medium border-white/10 text-neutral-800">
-            <tr className="text-2xl font-black">
-              <th scope="col" class="px-6 py-4">
-                Camp Name
-              </th>
-              <th scope="col" class="px-6 py-4">
-                Description
-              </th>
-              <th scope="col" class="px-6 py-4">
-                Venue
-              </th>
-              <th scope="col" class="px-6 py-4">
-                Village
-              </th>
-              <th scope="col" class="px-6 py-4">
-                Date of Camp
-              </th>
-              <th scope="col" class="px-6 py-4">
-                Timing
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white">
-            {campData?.map((item) => {
-              return (
-                <tr className="border-b border-neutral-200 border-white/10">
-                  <td className="whitespace-nowrap  px-6 py-4 font-medium">
-                    {item.Name}
-                  </td>
-                  <td className="whitespace-nowrap  px-6 py-4 font-medium">
-                    {item.Description}
-                  </td>
-                  <td className="whitespace-nowrap  px-6 py-4 font-medium">
-                    {item.Venue}
-                  </td>
-                  <td className="whitespace-nowrap  px-6 py-4 font-medium">
-                    {item.Village}
-                  </td>
-                  <td className="whitespace-nowrap  px-6 py-4 font-medium">
-                    {item.DateOriginal}
-                  </td>
-                  <td className="whitespace-nowrap  px-6 py-4 font-medium">
-                    {item.Timing}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    <div className="h-full w-full">
+    {villages.map((village) => (
+      <div key={village}>
+        <h1>{village}</h1>
+        {campData
+          .filter((item) => item.Village === village)
+          .map((item) => (
+            <div key={item._id}>
+              <h2>{item.Name}</h2>
+              <p>{item.Description}</p>
+            </div>
+          ))
+        }
       </div>
+    ))}
     </div>
   );
 }

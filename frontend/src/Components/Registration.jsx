@@ -1,62 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HttpnInstance from "./Api/nodeapi";
-import Dropdown from "./Dropdown";
 
 function Registration() {
-  const [campData, setCampData] = useState([]);
-  const [filteredCampData, setFilteredCampData] = useState([]);
-  const [villages, setVillages] = useState([]);
-  const [selectedVillage, setSelectedVillage] = useState("");
-  const [selectedCamp, setSelectedCamp] = useState(0);
   const [formData, setFormData] = useState({
     FullName: "",
     Address: "",
     Taluka: "",
     District: "",
-    Village: "Nandurbar",
+    Village: "",
     AadharNumber: "",
     Gender: "Male",
     Age: "",
-    CampId: 1,
+    PhoneNumber: "",
   });
-
-  useEffect(() => {
-    try {
-      HttpnInstance.post("/camps/getCamps").then((response) => {
-        setCampData(response.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    const uniqueVillages = new Set();
-    campData.forEach((item) => {
-      uniqueVillages.add(item.Village);
-    });
-    setVillages(Array.from(uniqueVillages));
-    setSelectedVillage(uniqueVillages.values().next().value);
-  }, [campData]);
-
-  useEffect(() => {
-    const filterData = campData.filter(
-      (item) => item.Village === selectedVillage
-    );
-    setFilteredCampData(filterData);
-    setSelectedCamp(filterData[0]?.Id);
-    setFormData({
-      ...formData,
-      Village: selectedVillage,
-    });
-  }, [selectedVillage]);
-
-  useEffect(() => {
-    setFormData({
-      ...formData,
-      CampId: selectedCamp,
-    });
-  }, [selectedCamp]);
 
   const handleFormSubmit = (e) => {
     e?.preventDefault();
@@ -64,9 +20,21 @@ function Registration() {
       formData.FullName.trim() === "" ||
       formData.Address.trim() === "" ||
       formData.AadharNumber.trim() === "" ||
-      formData.Age.trim() === ""
+      formData.Age.trim() === "" ||
+      formData.PhoneNumber.trim() === "" ||
+      formData.Taluka.trim() === "" ||
+      formData.District.trim() === "" ||
+      formData.Village.trim() === ""
     ) {
       alert("Please fill out all required fields");
+      return;
+    }
+    if (formData.PhoneNumber.length !== 10) {
+      alert("Please enter a valid phone number");
+      return;
+    }
+    if (formData.AadharNumber.length !== 12) {
+      alert("Please enter a valid Aadhar Number");
       return;
     }
     try {
@@ -77,11 +45,11 @@ function Registration() {
           Address: "",
           Taluka: "",
           District: "",
-          Village: "Nandurbar",
+          Village: "",
           AadharNumber: "",
           Gender: "Male",
           Age: "",
-          CampId: 1,
+          PhoneNumber: "",
         });
       });
     } catch (error) {
@@ -121,22 +89,19 @@ function Registration() {
           }
         />
         <div>Village</div>
-        <select
+        <input
+          type="text"
           className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
                     shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
                     sm:text-sm sm:leading-6"
-          value={selectedVillage}
-          onChange={(e) => setSelectedVillage(e.target.value)}
-        >
-          {villages?.map((village) => {
-            return (
-              <option key={village} value={village}>
-                {village}
-              </option>
-            );
-          })}
-        </select>
+          placeholder="Enter your address"
+          required
+          value={formData.Village}
+          onChange={(e) =>
+            setFormData({ ...formData, Village: e.target.value })
+          }
+        />
         <div>Taluka</div>
         <input
           type="text"
@@ -147,9 +112,7 @@ function Registration() {
           placeholder="Enter your taluka"
           required
           value={formData.Taluka}
-          onChange={(e) =>
-            setFormData({ ...formData, Taluka: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, Taluka: e.target.value })}
         />
         <div>District</div>
         <input
@@ -165,23 +128,6 @@ function Registration() {
             setFormData({ ...formData, District: e.target.value })
           }
         />
-        <div>Camps Available</div>
-        <select
-          className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
-                    sm:text-sm sm:leading-6"
-          value={selectedCamp}
-          onChange={(e) => setSelectedCamp(parseInt(e.target.value, 10))}
-        >
-          {filteredCampData.map((camp) => {
-            return (
-              <option key={camp.Id} value={camp.Id}>
-                {camp.Name}
-              </option>
-            );
-          })}
-        </select>
         <div>Aadhar Number</div>
         <input
           type="text"
@@ -189,7 +135,7 @@ function Registration() {
                     shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
                     sm:text-sm sm:leading-6"
-          placeholder="Enter your Aadhar Card Number"
+          placeholder="Enter your aadhar number"
           required
           value={formData.AadharNumber}
           onChange={(e) =>
@@ -216,9 +162,23 @@ function Registration() {
                     focus:ring-2 focus:ring-inset focus:ring-[#007aff]
                     sm:text-sm sm:leading-6"
           required
-          placeholder="Age in years"
+          placeholder="Enter your age"
           value={formData.Age}
           onChange={(e) => setFormData({ ...formData, Age: e.target.value })}
+        />
+        <div>Phone Number</div>
+        <input
+          type="number"
+          className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
+                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
+                    sm:text-sm sm:leading-6"
+          required
+          placeholder="Enter your phone number"
+          value={formData.PhoneNumber}
+          onChange={(e) =>
+            setFormData({ ...formData, PhoneNumber: e.target.value })
+          }
         />
         <div>
           <button
