@@ -24,11 +24,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(bodyParser.json({ limit: "10mb" })); // Set limit directly on bodyParser.json()
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 bb.extend(app, {
   upload: true,

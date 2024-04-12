@@ -44,13 +44,16 @@ const getRegistrationsQuery = async () => {
 
 const addRegistrationQuery = async (reqParams, res) => {
   try {
+    const serialNumber = await getRegistrationsQuery().then((data) => {
+      return data.length + 1;
+    })
     const fullName = reqParams.FullName;
     const address = reqParams.Address;
     const village = reqParams.Village;
     const aadharNumber = reqParams.AadharNumber;
     const gender = reqParams.Gender;
     const age = reqParams.Age;
-    const campId = reqParams.CampId;
+    const phoneNumber = reqParams.PhoneNumber;
     const Taluka = reqParams.Taluka;
     const District = reqParams.District;
     const serviceAccountAuth = new JWT({
@@ -71,12 +74,12 @@ const addRegistrationQuery = async (reqParams, res) => {
     rowData[headers[1]] = fullName;
     rowData[headers[2]] = address;
     rowData[headers[3]] = village;
-    rowData[headers[4]] = aadharNumber;
-    rowData[headers[5]] = gender;
-    rowData[headers[6]] = age;
-    rowData[headers[7]] = campId;
-    rowData[headers[8]] = Taluka;
-    rowData[headers[9]] = District;
+    rowData[headers[4]] = Taluka;
+    rowData[headers[5]] = District;
+    rowData[headers[6]] = aadharNumber;
+    rowData[headers[7]] = gender;
+    rowData[headers[8]] = age;
+    rowData[headers[9]] = phoneNumber;
     await sheet.addRow(rowData);
     return "Data has been added";
   } catch (error) {
