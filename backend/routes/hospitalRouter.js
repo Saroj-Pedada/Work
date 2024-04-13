@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.post('/addHospital', addHospital);
 router.post('/deleteHospital', deleteHospital);
-router.post('/editHospital',editHospital);
 router.post('/getHospitals', getHospitals);
 
 

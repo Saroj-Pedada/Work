@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.post('/addCamp', addCamp);
 router.post('/deleteCamp', deleteCamp);
-router.post('/editCamp',editCamp);
 router.post('/getCamps', getCamps);
 
 

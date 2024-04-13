@@ -7,7 +7,7 @@ function Footer() {
         <p className="text-sm">Shri CSM Multipurpose Organisation</p>
         <p className="text-xs">Health is Wealth</p>
         <p className="text-xs mt-2">
-          Location: Amravati, Yavatmal | Register No. 515/12F | Phone: 29813 |
+          Location: Amravati, Yavatmal | Register No. 515/12F 29813
           Email: info@medicalcamp.org
         </p>
       </div>
