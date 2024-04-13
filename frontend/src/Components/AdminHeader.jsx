@@ -24,7 +24,12 @@ function Header(props) {
     <div className="bg-blue-900 text-white py-4">
       <div className="container px-3 mx-auto">
         <div className="flex items-center justify-between">
-          <div className="text-lg font-semibold">
+          <div onClick={() => window.location.href = "/"} className="text-lg font-semibold flex gap-x-2">
+            <img
+              src="https://www.rssp.org.in/img/bg-img/shahu-maharaj.jpg"
+              alt="logo"
+              className="h-10"
+            />
             Shri CSM Multipurpose Organisation
           </div>
           <button className="lg:hidden focus:outline-none" onClick={toggleMenu}>
