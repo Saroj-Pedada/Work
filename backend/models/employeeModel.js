@@ -93,25 +93,31 @@ const deleteEmployeesQuery = async (reqParams, res) => {
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[3];
     await sheet.loadCells();
-    const Id = reqParams.Id;
+    const Id = parseInt(reqParams.Id);
     const rows = sheet.rowCount;
-    const cols = sheet.columnCount;
     let rowIndexToDelete = -1;
-    for (let i = 1; i < rows; i++) {
+    let deletedData;
+    for (let i = 0; i < rows; i++) {
       const cell = sheet.getCell(i, 0);
-      if (cell.value === Id) {
+      const cellValue = parseInt(cell.value);
+      if (cellValue === Id) {
         rowIndexToDelete = i;
+        deletedData = sheet.getCell(i, 2).value;
         break;
       }
     }
     if (rowIndexToDelete !== -1) {
-      await sheet.deleteDimension(0, rowIndexToDelete, 1, 1);
-      return "Employee data has been deleted";
+      await sheet.clearRows(rowIndexToDelete, rowIndexToDelete + 1);
+      return {
+        message: "Employee data has been deleted",
+        deletedData: deletedData,
+      };
     } else {
-      return "Employee with the provided Id not found";
+      return { message: "Employee with the provided Id not found" };
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).send({ message: "Error deleting employee data" });
   }
 };
 

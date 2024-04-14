@@ -34,7 +34,7 @@ const deleteEmployee = async (req, res) => {
     try {
         const res1 = await deleteEmployeesQuery(req.body, res)
         if (res1) {
-            res.status(200).json("Data Deleted Successfully");
+            res.status(200).json(res1);
         } else {
             res.status(500).json("Failed to delete Data");
         }
