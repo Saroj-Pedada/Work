@@ -51,7 +51,7 @@ function ManageHospitals() {
       const newData = new FormData();
       newData.set("key", "bdfd1f7bf980b08f24312dbac7c26934");
       newData.append("image", files[i]);
-      fetch(`https://api.imgbb.com/1/upload`, {
+      await fetch(`https://api.imgbb.com/1/upload`, {
         method: "POST",
         mode: "cors",
         body: newData,
@@ -60,11 +60,11 @@ function ManageHospitals() {
         .then((data) => {
           setFormData({
             ...formData,
-            Images: [...formData.Images, data.data.url],
+            Images: [...formData.Images, data.data.display_url],
           });
-        }).then(() => {
+        }).finally(() => {
           return "Done";
-        });
+        })
     }
   };
 
