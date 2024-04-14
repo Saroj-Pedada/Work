@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HttpnInstance from "./Api/nodeapi";
 
 function ManageCamps() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [camps, setCamps] = useState([]);
   const [formData, setFormData] = useState({
     Name: "",
     Venue: "",
@@ -10,6 +11,16 @@ function ManageCamps() {
     Images: [],
     Date: "",
   });
+
+  useEffect(() => {
+    HttpnInstance.post("/camps/getCamps").then((response) => {
+      setCamps(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(formData)
+  },[formData])
 
   const handleAddCamp = (e) => {
     e?.preventDefault();
@@ -38,19 +49,27 @@ function ManageCamps() {
     }
   };
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const imageDataUrl = String(reader.result);
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          Images: [...prevFormData.Images, imageDataUrl],
-        }));
-      };
-      reader.readAsDataURL(file);
-    });
+  const handleImageChange = async (e) => {
+    const files = e.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const newData = new FormData();
+      newData.set("key", "bdfd1f7bf980b08f24312dbac7c26934");
+      newData.append("image", files[i]);
+      fetch(`https://api.imgbb.com/1/upload`, {
+        method: "POST",
+        mode: "cors",
+        body: newData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setFormData({
+            ...formData,
+            Images: [...formData.Images, data.data.display_url],
+          });
+        }).then(() => {
+          return "Done";
+        });
+    }
   };
 
   const showPreviousImage = () => {
@@ -89,54 +108,81 @@ function ManageCamps() {
                   focus:ring-2 focus:ring-inset focus:ring-[#007aff]
                   sm:text-sm sm:leading-6"
             required
+            accept="image/*"
             onChange={handleImageChange}
             multiple
           />
-          {formData.Images.length ? <div id="gallery" className="relative w-full" data-carousel="slide">
-            <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-              {formData.Images.map((image, index) => (
-                <div
-                  key={index}
-                  className={`duration-700 ease-in-out ${index === currentImageIndex ? '' : 'hidden'
+          {formData.Images.length ? (
+            <div id="gallery" className="relative w-full" data-carousel="slide">
+              <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+                {formData.Images.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`duration-700 ease-in-out ${
+                      index === currentImageIndex ? "" : "hidden"
                     }`}
-                  data-carousel-item
-                >
-                  <img
-                    src={image}
-                    className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                    alt={`Image ${index}`}
-                  />
-                </div>
-              ))}
+                    data-carousel-item
+                  >
+                    <img
+                      src={image}
+                      className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt={`Image ${index}`}
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                data-carousel-prev
+                onClick={showPreviousImage}
+              >
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg
+                    className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 1 1 5l4 4"
+                    />
+                  </svg>
+                  <span className="sr-only">Previous</span>
+                </span>
+              </button>
+              <button
+                type="button"
+                className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                data-carousel-next
+                onClick={showNextImage}
+              >
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                  <svg
+                    className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 9 4-4-4-4"
+                    />
+                  </svg>
+                  <span className="sr-only">Next</span>
+                </span>
+              </button>
             </div>
-            <button
-              type="button"
-              className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-              data-carousel-prev
-              onClick={showPreviousImage}
-            >
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
-                </svg>
-                <span className="sr-only">Previous</span>
-              </span>
-            </button>
-            <button
-              type="button"
-              className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-              data-carousel-next
-              onClick={showNextImage}
-            >
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
-                </svg>
-                <span className="sr-only">Next</span>
-              </span>
-            </button>
-          </div>
-            : null}
+          ) : null}
         </div>
         <div>Venue</div>
         <input
@@ -185,7 +231,6 @@ function ManageCamps() {
           </button>
         </div>
       </form>
-      {/* <Dropdown /> */}
     </div>
   );
 }

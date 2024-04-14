@@ -15,12 +15,11 @@ function ViewRegistration() {
   }, []);
 
   return (
-    <div className="w-full">
-      <div>Registrations</div>
-      <table className="w-full bg-white">
-        <thead className="p-3">
+    <div className="rounded-2xl overflow-x-scroll p-5 lg:mt-5 md:mt-3 sm:mt-1 mt-1 w-screen">
+      <table className="rounded-2xl w-full bg-white">
+        <thead>
           <tr>
-            <th className="ring-1 ring-inset ring-blue-500">Name</th>
+            <th className="p-3 ring-1 ring-inset ring-blue-500">Name</th>
             <th className="ring-1 ring-inset ring-blue-500">Address</th>
             <th className="ring-1 ring-inset ring-blue-500">Taluka</th>
             <th className="ring-1 ring-inset ring-blue-500">District</th>
@@ -31,11 +30,11 @@ function ViewRegistration() {
             <th className="ring-1 ring-inset ring-blue-500">Phone Number</th>
           </tr>
         </thead>
-        <tbody className="p-3">
+        <tbody className="text-center">
           {registrations?.map((registration) => {
             return (
               <tr>
-                <td className="ring-1 ring-inset ring-blue-500">
+                <td className="p-1 ring-1 ring-inset ring-blue-500">
                   {registration.FullName}
                 </td>
                 <td className="ring-1 ring-inset ring-blue-500">

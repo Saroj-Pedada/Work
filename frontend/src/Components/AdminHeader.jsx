@@ -51,11 +51,11 @@ function Header(props) {
           <div
             className={`${
               menuOpen
-                ? "block absolute w-screen h-full bg-black top-0"
+                ? "block absolute z-1000 w-full h-screen bg-black top-0 left-0"
                 : "hidden"
             } lg:flex flex-grow lg:items-center justify-end`}
           >
-            <ul className="flex flex-col lg:flex-row lg:gap-5">
+            <ul className="flex flex-col lg:flex-row lg:gap-y-5 gap-5">
               <li>
                 <div
                   onClick={() => {
@@ -87,6 +87,17 @@ function Header(props) {
                   className="hover:text-gray-300 cursor-pointer"
                 >
                   Manage Hospitals
+                </div>
+              </li>
+              <li>
+                <div
+                  onClick={() => {
+                    props.setActive(4);
+                    if (window.innerWidth < 1024) toggleMenu();
+                  }}
+                  className="hover:text-gray-300 cursor-pointer"
+                >
+                  Manage Employees
                 </div>
               </li>
             </ul>

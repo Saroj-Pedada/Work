@@ -4,6 +4,7 @@ import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Hospitals from "./Components/Hospitals";
 import Registration from "./Components/Registration";
+import Employees from "./Components/Employees";
 import React, { useState } from "react";
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
         {active === 1 && <Registration />}
         {active === 2 && <Camps />}
         {active === 3 && <Hospitals />}
-        {active !== 1 && active !== 2 && active !== 3 && <AboutUs />}
+        {active === 5 && <Employees />}
+        {active === 4 && <AboutUs />}
       </div>
       <Footer />
     </>

@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const campsRouter = require("./routes/campsRouter");
 const registrationRouter = require("./routes/registrationRouter");
 const hospitalRouter = require("./routes/hospitalRouter");
+const employeeRouter = require("./routes/employeeRouter");
 
 const app = express();
 
@@ -40,6 +41,7 @@ bb.extend(app, {
 app.use("/camps", campsRouter);
 app.use("/registration", registrationRouter);
 app.use("/hospital", hospitalRouter);
+app.use("/employee", employeeRouter);
 
 const JWT_SECRET = "mysecretkey";
 const adminUser = { id: 1, username: "admin", password: "password" };
