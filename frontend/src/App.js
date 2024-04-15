@@ -1,10 +1,10 @@
-import AboutUs from "./Components/AboutUs";
-import Camps from "./Components/Camps";
-import Footer from "./Components/Footer";
-import Header from "./Components/Header";
-import Hospitals from "./Components/Hospitals";
-import Registration from "./Components/Registration";
-import Employees from "./Components/Employees";
+import AboutUs from "./Components/User/AboutUs";
+import Camps from "./Components/User/Camps";
+import Footer from "./Components/Common/Footer";
+import Header from "./Components/User/Header";
+import Hospitals from "./Components/User/Hospitals";
+import Registration from "./Components/User/Registration";
+import Employees from "./Components/User/Employees";
 import React, { useState } from "react";
 
 function App() {

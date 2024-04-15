@@ -33,7 +33,7 @@ const addCampQuery = async (reqParams, res) => {
     rowData[headers[2]] = venue;
     rowData[headers[3]] = village;
     rowData[headers[4]] = imageString;
-    rowData[headers[5]] = date;
+    rowData[headers[5]] = String(date);
     await sheet.addRow(rowData);
     return "Data has been added";
   } catch (error) {
@@ -96,24 +96,8 @@ const deleteCampQuery = async (reqParams, res) => {
   }
 };
 
-const editCampQuery = async (reqParams, res) => {
-  try {
-    const name = reqParams.name;
-    const description = reqParams.description;
-    const location = reqParams.location;
-    const village = reqParams.village;
-    const date = reqParams.date;
-    const timing = reqParams.timing;
-    const images = reqParams.imageData;
-    return "Data has been edited";
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 module.exports = {
   addCampQuery,
   getCampsQuery,
   deleteCampQuery,
-  editCampQuery,
 };

@@ -1,10 +1,10 @@
-import ViewRegistration from "./Components/viewRegistration"; 
-import Footer from "./Components/Footer";
-import AdminHeader from "./Components/AdminHeader";
-import ManageHospitals from "./Components/ManageHospitals";
-import ManageCamps from "./Components/ManageCamps";
-import Auth from "./Components/Auth";
-import ManageEmployees from "./Components/ManageEmployees";
+import ViewRegistration from "./Components/Admin/viewRegistration"; 
+import Footer from "./Components/Common/Footer";
+import AdminHeader from "./Components/Admin/AdminHeader";
+import ManageHospitals from "./Components/Admin/ManageHospitals";
+import ManageCamps from "./Components/Admin/ManageCamps";
+import Auth from "./Components/Admin/Auth";
+import ManageEmployees from "./Components/Admin/ManageEmployees";
 import React, { useEffect, useState } from "react";
 
 function AdminAuth() {

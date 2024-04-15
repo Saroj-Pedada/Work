@@ -94,24 +94,8 @@ const deleteHospitalQuery = async (reqParams, res) => {
   }
 };
 
-const editHospitalQuery = async (reqParams, res) => {
-  try {
-    const name = reqParams.name;
-    const description = reqParams.description;
-    const location = reqParams.location;
-    const village = reqParams.village;
-    const date = reqParams.date;
-    const timing = reqParams.timing;
-    const images = reqParams.imageData;
-    return "Data has been edited";
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 module.exports = {
   addHospitalQuery,
   getHospitalsQuery,
   deleteHospitalQuery,
-  editHospitalQuery,
 };

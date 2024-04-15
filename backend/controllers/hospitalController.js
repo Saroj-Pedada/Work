@@ -1,4 +1,4 @@
-const { addHospitalQuery, getHospitalsQuery, deleteHospitalQuery, editHospitalQuery } = require("../models/hospitalModel");
+const { addHospitalQuery, getHospitalsQuery, deleteHospitalQuery } = require("../models/hospitalModel");
 
 const addHospital = async (req, res) => {
     try {
@@ -45,19 +45,4 @@ const deleteHospital = async (req, res) => {
     }
 };
 
-const editHospital = async (req, res) => {
-    try {
-        const res1 = await editHospitalQuery(req.body, res)
-        if (res1) {
-            res.status(200).json("Data Edited Successfully");
-        } else {
-            res.status(500).json("Failed to edit Data");
-        }
-    } catch (error) {
-        res.status(500).json({
-            error: "An error occurred"
-        });
-    }
-};
-
-module.exports = { addHospital, getHospitals, deleteHospital , editHospital };
+module.exports = { addHospital, getHospitals, deleteHospital };

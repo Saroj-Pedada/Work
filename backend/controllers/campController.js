@@ -1,4 +1,4 @@
-const { addCampQuery, getCampsQuery, deleteCampQuery, editCampQuery } = require("../models/campModel");
+const { addCampQuery, getCampsQuery, deleteCampQuery } = require("../models/campModel");
 
 const addCamp = async (req, res) => {
     try {
@@ -45,19 +45,4 @@ const deleteCamp = async (req, res) => {
     }
 };
 
-const editCamp = async (req, res) => {
-    try {
-        const res1 = await editCampQuery(req.body, res)
-        if (res1) {
-            res.status(200).json("Data Edited Successfully");
-        } else {
-            res.status(500).json("Failed to edit Data");
-        }
-    } catch (error) {
-        res.status(500).json({
-            error: "An error occurred"
-        });
-    }
-};
-
-module.exports = { addCamp, getCamps, deleteCamp , editCamp };
+module.exports = { addCamp, getCamps, deleteCamp };

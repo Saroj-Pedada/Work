@@ -24,7 +24,7 @@ function Header(props) {
     <div className="bg-blue-900 text-white py-4">
       <div className="container px-3 mx-auto">
         <div className="flex items-center justify-between">
-          <div onClick={() => window.location.href = "/"} className="text-lg font-semibold flex gap-x-2">
+          <div onClick={() => window.location.href = "/"} className="items-center justify-center text-lg font-semibold flex gap-x-2">
             <img
               src="https://www.rssp.org.in/img/bg-img/shahu-maharaj.jpg"
               alt="logo"
