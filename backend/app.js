@@ -26,7 +26,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use(bodyParser.json({ limit: "10mb" })); // Set limit directly on bodyParser.json()
+app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 bb.extend(app, {
@@ -43,8 +43,8 @@ app.use("/registration", registrationRouter);
 app.use("/hospital", hospitalRouter);
 app.use("/employee", employeeRouter);
 
-const JWT_SECRET = "mysecretkey";
-const adminUser = { id: 1, username: "admin", password: "password" };
+const JWT_SECRET = process.env.JWT_SECRET;
+const adminUser = { id: 1, username: process.env.ADMIN_USERNAME, password: process.env.ADMIN_PASSWORD };
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -12,7 +12,6 @@ function Hospitals(props) {
   useEffect(() => {
     try {
       HttpnInstance.post("/hospital/getHospitals").then((response) => {
-        console.log(response.data);
         setHospitals(response.data);
       });
     } catch (error) {

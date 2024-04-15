@@ -11,7 +11,6 @@ function Employees() {
     try {
       setLoading(true);
       HttpnInstance.post("/employee/getEmployees").then((response) => {
-        console.log(response.data);
         setEmployees(response.data);
         setLoading(false);
       });

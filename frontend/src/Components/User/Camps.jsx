@@ -11,7 +11,6 @@ function Camps(props) {
   useEffect(() => {
     try {
       HttpnInstance.post("/camps/getCamps").then((response) => {
-        console.log(response.data);
         setCampData(response.data);
       });
     } catch (error) {
