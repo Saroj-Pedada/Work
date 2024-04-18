@@ -21,10 +21,14 @@ function Employees() {
 
   // Filtering employees based on search query
   const filteredEmployees = searchEmployee
-    ? employees.filter((employee) =>
-        employee.Name.toLowerCase().includes(searchEmployee.toLowerCase())
-      )
+    ? employees.filter((employee) => {
+        const searchValue = String(searchEmployee).toLowerCase();
+        const empNoMatch = String(employee.EmpNo).includes(searchValue);
+        const nameMatch = employee.Name.toLowerCase().includes(searchValue);
+        return empNoMatch || nameMatch;
+    })
     : employees;
+
 
   return loading ? (
     <LoadingAnim />
@@ -47,6 +51,7 @@ function Employees() {
               key={employee._id}
             >
               <p>Name: {employee.Name}</p>
+              <p>Employee ID: {employee.EmpNo}</p>
               <p>Designation: {employee.Designation}</p>
               <p>Phone: {employee.PhoneNumber}</p>
               <p>Location: {employee.Location}</p>
