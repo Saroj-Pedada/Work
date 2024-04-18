@@ -19,7 +19,8 @@ const corsOptions = {
     "http://localhost:3002",
     "https://medicalcamp-backend.onrender.com",
     "https://csm-multipurpose-organisation.vercel.app",
-    "https://csm-backend.adaptable.app"
+    "https://csm-backend.adaptable.app",
+    "https://csmmultipurposeorganisation.com",
   ],
   credentials: true,
   optionSuccessStatus: 200,
