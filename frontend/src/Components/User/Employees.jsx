@@ -6,6 +6,8 @@ function Employees() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchEmployee, setSearchEmployee] = useState("");
+  const [foundEmployee, setFoundEmployee] = useState(null);
+  const [searchMessage, setSearchMessage] = useState("");
 
   useEffect(() => {
     try {
@@ -19,16 +21,18 @@ function Employees() {
     }
   }, []);
 
-  // Filtering employees based on search query
-  const filteredEmployees = searchEmployee
-    ? employees.filter((employee) => {
-        const searchValue = String(searchEmployee).toLowerCase();
-        const empNoMatch = String(employee.EmpNo).includes(searchValue);
-        const nameMatch = employee.Name.toLowerCase().includes(searchValue);
-        return empNoMatch || nameMatch;
-    })
-    : employees;
-
+  const handleSearch = () => {
+    const found = employees.find(
+      (employee) => String(employee.EmpNo) === String(searchEmployee)
+    );
+    if (found) {
+      setFoundEmployee(found);
+      setSearchMessage("");
+    } else {
+      setFoundEmployee(null);
+      setSearchMessage("Employee ID not found");
+    }
+  };
 
   return loading ? (
     <LoadingAnim />
@@ -38,27 +42,36 @@ function Employees() {
         <input
           type="text"
           className="w-1/2 h-10 rounded-xl ring-1 ring-inset ring-black p-5"
-          placeholder="Search Employee"
+          placeholder="Enter Employee ID"
           value={searchEmployee}
           onChange={(e) => setSearchEmployee(e.target.value)}
         />
+        <button
+          className="ml-3 px-4 py-2 bg-blue-700 text-white rounded-lg"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
       </div>
-      <div className="p-5 h-full w-full flex flex-col items-center">
-        <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 grid-cols-1 gap-5 h-64 justify-between">
-          {filteredEmployees.map((employee) => (
-            <div
-              className="bg-white rounded-xl ring-2 ring-inset ring-[#3940ff] p-5"
-              key={employee._id}
-            >
-              <p>Name: {employee.Name}</p>
-              <p>Employee ID: {employee.EmpNo}</p>
-              <p>Designation: {employee.Designation}</p>
-              <p>Phone: {employee.PhoneNumber}</p>
-              <p>Location: {employee.Location}</p>
-            </div>
-          ))}
+      {foundEmployee && (
+        <div className="p-5 h-full w-full flex flex-col items-center">
+          <div
+            className="bg-white rounded-xl ring-2 ring-inset ring-[#3940ff] p-5"
+            key={foundEmployee._id}
+          >
+            <p>Name: {foundEmployee.Name}</p>
+            <p>Employee ID: {foundEmployee.EmpNo}</p>
+            <p>Designation: {foundEmployee.Designation}</p>
+            <p>Phone: {foundEmployee.PhoneNumber}</p>
+            <p>Location: {foundEmployee.Location}</p>
+          </div>
         </div>
-      </div>
+      )}
+      {searchMessage && (
+        <div className="p-5 h-full w-full flex items-center justify-center">
+          <p className="text-red-500">{searchMessage}</p>
+        </div>
+      )}
     </>
   );
 }
