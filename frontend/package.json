@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": "https://csmmultipurposeorganisation.com",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.18",

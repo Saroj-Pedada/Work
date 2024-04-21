@@ -26,7 +26,7 @@ function AdminAuth() {
         setActive={setActive}
         setLoggedIn={setLoggedIn}
       />
-      <div className="bg-[url('./images/image.png')] bg-cover bg-no-repeat overflow-hidden min-h-screen w-full flex flex-col">
+      <div className="bg-blue-200 bg-cover bg-no-repeat overflow-hidden min-h-screen w-full flex flex-col">
         {loggedIn ? (
           <>
             {active === 1 && <ViewRegistration />}
