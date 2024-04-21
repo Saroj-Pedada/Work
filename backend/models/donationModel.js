@@ -44,7 +44,7 @@ const getDonationsQuery = async () => {
 
 const addDonationQuery = async (reqParams, res) => {
   try {
-    const serialNumber = await getRegistrationsQuery().then((data) => {
+    const serialNumber = await getDonationsQuery().then((data) => {
       return data.length + 1;
     });
     const fullName = reqParams.FullName;

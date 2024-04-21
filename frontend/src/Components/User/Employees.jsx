@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import HttpnInstance from "../Api/nodeapi";
 import LoadingAnim from "../Common/LoadinAnim";
 
-function Employees() {
+function Employees(props) {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchEmployee, setSearchEmployee] = useState("");

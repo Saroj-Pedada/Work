@@ -100,6 +100,17 @@ function Header(props) {
                   Manage Employees
                 </div>
               </li>
+              <li>
+                <div
+                  onClick={() => {
+                    props.setActive(5);
+                    if (window.innerWidth < 1024) toggleMenu();
+                  }}
+                  className="hover:text-gray-300 cursor-pointer"
+                >
+                  View Donations
+                </div>
+              </li>
             </ul>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HttpnInstance from "../Api/nodeapi";
 import LoadingAnim from "../Common/LoadinAnim";
 
-function Registration() {
+function Registration(props) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     FullName: "",

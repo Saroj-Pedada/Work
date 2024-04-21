@@ -18,6 +18,19 @@ function ViewRegistration() {
     }
   }, []);
 
+  const handleDelete = (id) => {
+    try {
+      setLoading(true);
+      HttpnInstance.post("/registration/deleteRegistration", { Id: id }).then(
+        () => {
+          setLoading(false);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return loading ? (
     <LoadingAnim />
   ) : (
@@ -26,7 +39,7 @@ function ViewRegistration() {
         <table className="rounded-2xl w-full bg-white">
           <thead>
             <tr>
-              <th className="p-3 ring-1 ring-inset ring-blue-500">Name</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Name</th>
               <th className="ring-1 ring-inset ring-blue-500">Address</th>
               <th className="ring-1 ring-inset ring-blue-500">Taluka</th>
               <th className="ring-1 ring-inset ring-blue-500">District</th>
@@ -36,13 +49,14 @@ function ViewRegistration() {
               <th className="ring-1 ring-inset ring-blue-500">Age</th>
               <th className="ring-1 ring-inset ring-blue-500">Phone Number</th>
               <th className="ring-1 ring-inset ring-blue-500">Date</th>
+              <th className="ring-1 ring-inset ring-blue-500">Action</th>
             </tr>
           </thead>
           <tbody className="text-center">
-            {registrations?.map((registration) => {
+            {registrations?.map((registration, idx) => {
               return (
                 <tr>
-                  <td className="p-1 ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.FullName}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
@@ -71,6 +85,14 @@ function ViewRegistration() {
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
                     {registration.Date}
+                  </td>
+                  <td className="ring-1 ring-inset ring-blue-500">
+                    <button
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => handleDelete(registration.Id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );

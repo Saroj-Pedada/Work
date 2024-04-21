@@ -4,19 +4,32 @@ import LoadingAnim from "../Common/LoadinAnim";
 
 function ViewDonation() {
   const [loading, setLoading] = useState(false);
-  const [registrations, setRegistrations] = useState([]);
+  const [donations, setDonations] = useState([]);
 
   useEffect(() => {
     try {
       setLoading(true);
       HttpnInstance.post("/donation/viewDonations").then((response) => {
-        setRegistrations(response.data);
+        setDonations(response.data);
         setLoading(false);
       });
     } catch (error) {
       console.log(error);
     }
   }, []);
+
+  const handleDelete = (id) => {
+    try {
+      setLoading(true);
+      HttpnInstance.post("/donation/deleteDonation", { Id: id }).then(
+        () => {
+          setLoading(false);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return loading ? (
     <LoadingAnim />
@@ -26,51 +39,52 @@ function ViewDonation() {
         <table className="rounded-2xl w-full bg-white">
           <thead>
             <tr>
-              <th className="p-3 ring-1 ring-inset ring-blue-500">Name</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Name</th>
               <th className="ring-1 ring-inset ring-blue-500">Address</th>
-              <th className="ring-1 ring-inset ring-blue-500">Taluka</th>
-              <th className="ring-1 ring-inset ring-blue-500">District</th>
-              <th className="ring-1 ring-inset ring-blue-500">Village</th>
-              <th className="ring-1 ring-inset ring-blue-500">Aadhar Number</th>
               <th className="ring-1 ring-inset ring-blue-500">Gender</th>
               <th className="ring-1 ring-inset ring-blue-500">Age</th>
               <th className="ring-1 ring-inset ring-blue-500">Phone Number</th>
+              <th className="ring-1 ring-inset ring-blue-500">Amount</th>
+              <th className="ring-1 ring-inset ring-blue-500">Reason</th>
               <th className="ring-1 ring-inset ring-blue-500">Date</th>
+              <th className="ring-1 ring-inset ring-blue-500">Action</th>
             </tr>
           </thead>
           <tbody className="text-center">
-            {registrations?.map((registration) => {
+            {donations?.map((donation) => {
               return (
                 <tr>
-                  <td className="p-1 ring-1 ring-inset ring-blue-500">
-                    {registration.FullName}
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
+                    {donation.FullName}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.Address}
+                    {donation.Address}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.Taluka}
+                    {donation.Gender}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.District}
+                    {donation.Age}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.Village}
+                    {donation.PhoneNumber}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.AadharNumber}
+                    {donation.DonationAmount}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.Gender}
+                    {donation.ReasonForDonation}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.Age}
+                    {donation.Date}
                   </td>
                   <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.PhoneNumber}
-                  </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
-                    {registration.Date}
+                    <button
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => handleDelete(donation.Id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );

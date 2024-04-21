@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HttpnInstance from "../Api/nodeapi";
 import LoadingAnim from "../Common/LoadinAnim";
 
-function Donation() {
+function Donation(props) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     FullName: "",
