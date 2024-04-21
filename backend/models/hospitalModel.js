@@ -81,16 +81,36 @@ const getHospitalsQuery = async (reqParams, res) => {
 
 const deleteHospitalQuery = async (reqParams, res) => {
   try {
-    const name = reqParams.name;
-    const description = reqParams.description;
-    const location = reqParams.location;
-    const village = reqParams.village;
-    const date = reqParams.date;
-    const timing = reqParams.timing;
-    const images = reqParams.imageData;
-    return "Data has been deleted";
+    const ID = reqParams.Id;
+    const hospitalData = await getHospitalsQuery();
+    const deleteIndex = hospitalData.findIndex((employee) => employee.Id === ID);
+    if (deleteIndex === -1) {
+      return "Hospital not found.";
+    }
+    hospitalData.splice(deleteIndex, 1);
+    const serviceAccountAuth = new JWT({
+      email: process.env.GOOGLE_PRIVATE_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+    const doc = new GoogleSpreadsheet(
+      process.env.GOOGLE_SHEET_ID,
+      serviceAccountAuth
+    );
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[2];
+    await sheet.clearRows(1);
+    await sheet.loadHeaderRow();
+    const headers = sheet.headerValues;
+    await sheet.addRow(headers.map((header) => header.value));
+    for (const [index, employee] of hospitalData.entries()) {
+      employee.Id = index + 1;
+      await sheet.addRow(Object.values(employee));
+    }
+    return "Hospital deleted and IDs corrected.";
   } catch (error) {
-    console.log(error);
+    console.error("Error deleting employee:", error);
+    throw error;
   }
 };
 

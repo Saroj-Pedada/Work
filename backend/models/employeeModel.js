@@ -62,7 +62,8 @@ const addEmployeeQuery = async (reqParams, res) => {
       serviceAccountAuth
     );
     await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[3];
+    const sheet = doc.
+      ByIndex[3];
     await sheet.loadHeaderRow();
     const headers = sheet.headerValues;
     const rowData = {};
@@ -81,6 +82,13 @@ const addEmployeeQuery = async (reqParams, res) => {
 
 const deleteEmployeesQuery = async (reqParams, res) => {
   try {
+    const ID = reqParams.Id;
+    const employeeData = await getEmployeesQuery();
+    const deleteIndex = employeeData.findIndex((employee) => employee.Id === ID);
+    if (deleteIndex === -1) {
+      return "Employee not found.";
+    }
+    employeeData.splice(deleteIndex, 1);
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_PRIVATE_EMAIL,
       key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -92,34 +100,21 @@ const deleteEmployeesQuery = async (reqParams, res) => {
     );
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[3];
-    await sheet.loadCells();
-    const Id = parseInt(reqParams.Id);
-    const rows = sheet.rowCount;
-    let rowIndexToDelete = -1;
-    let deletedData;
-    for (let i = 0; i < rows; i++) {
-      const cell = sheet.getCell(i, 0);
-      const cellValue = parseInt(cell.value);
-      if (cellValue === Id) {
-        rowIndexToDelete = i;
-        deletedData = sheet.getCell(i, 2).value;
-        break;
-      }
+    await sheet.clearRows(1);
+    await sheet.loadHeaderRow();
+    const headers = sheet.headerValues;
+    await sheet.addRow(headers.map((header) => header.value));
+    for (const [index, employee] of employeeData.entries()) {
+      employee.Id = index + 1;
+      await sheet.addRow(Object.values(employee));
     }
-    if (rowIndexToDelete !== -1) {
-      await sheet.clearRows(rowIndexToDelete, rowIndexToDelete + 1);
-      return {
-        message: "Employee data has been deleted",
-        deletedData: deletedData,
-      };
-    } else {
-      return { message: "Employee with the provided Id not found" };
-    }
+    return "Employee deleted and IDs corrected.";
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Error deleting employee data" });
+    console.error("Error deleting employee:", error);
+    throw error;
   }
 };
+
 
 
 module.exports = {
