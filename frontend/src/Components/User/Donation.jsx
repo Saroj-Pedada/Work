@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import HttpnInstance from "../Api/nodeapi";
 import LoadingAnim from "../Common/LoadinAnim";
 
-function Registration(props) {
+function Donation(props) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     FullName: "",
     Address: "",
-    Taluka: "",
-    District: "",
-    Village: "",
-    AadharNumber: "",
     Gender: "Male",
     Age: "",
     PhoneNumber: "",
+    DonationAmount: "",
+    ReasonForDonation: "",
   });
 
   const handleFormSubmit = (e) => {
@@ -21,12 +19,10 @@ function Registration(props) {
     if (
       formData.FullName.trim() === "" ||
       formData.Address.trim() === "" ||
-      formData.AadharNumber.trim() === "" ||
       formData.Age.trim() === "" ||
       formData.PhoneNumber.trim() === "" ||
-      formData.Taluka.trim() === "" ||
-      formData.District.trim() === "" ||
-      formData.Village.trim() === ""
+      formData.DonationAmount.trim() === "" ||
+      formData.ReasonForDonation.trim() === ""
     ) {
       alert("Please fill out all required fields");
       return;
@@ -35,25 +31,19 @@ function Registration(props) {
       alert("Please enter a valid phone number");
       return;
     }
-    if (formData.AadharNumber.length !== 12) {
-      alert("Please enter a valid Aadhar Number");
-      return;
-    }
     try {
       setLoading(true);
-      HttpnInstance.post("/registration/addUserData", formData).then(() => {
+      HttpnInstance.post("/donation/addUserData", formData).then(() => {
         setLoading(false);
-        alert("Registration Successful. We will contact you soon.");
+        alert("Donation registration successful. We will contact you soon.");
         setFormData({
           FullName: "",
           Address: "",
-          Taluka: "",
-          District: "",
-          Village: "",
-          AadharNumber: "",
           Gender: "Male",
           Age: "",
           PhoneNumber: "",
+          DonationAmount: "",
+          ReasonForDonation: "",
         });
       });
     } catch (error) {
@@ -93,62 +83,6 @@ function Registration(props) {
             value={formData.Address}
             onChange={(e) =>
               setFormData({ ...formData, Address: e.target.value })
-            }
-          />
-          <div>Village</div>
-          <input
-            type="text"
-            className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
-                    sm:text-sm sm:leading-6"
-            placeholder="Enter your address"
-            required
-            value={formData.Village}
-            onChange={(e) =>
-              setFormData({ ...formData, Village: e.target.value })
-            }
-          />
-          <div>Taluka</div>
-          <input
-            type="text"
-            className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
-                    sm:text-sm sm:leading-6"
-            placeholder="Enter your taluka"
-            required
-            value={formData.Taluka}
-            onChange={(e) =>
-              setFormData({ ...formData, Taluka: e.target.value })
-            }
-          />
-          <div>District</div>
-          <input
-            type="text"
-            className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
-                    sm:text-sm sm:leading-6"
-            placeholder="Enter your district"
-            required
-            value={formData.District}
-            onChange={(e) =>
-              setFormData({ ...formData, District: e.target.value })
-            }
-          />
-          <div>Aadhar Number</div>
-          <input
-            type="text"
-            className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900 
-                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
-                    sm:text-sm sm:leading-6"
-            placeholder="Enter your aadhar number"
-            required
-            value={formData.AadharNumber}
-            onChange={(e) =>
-              setFormData({ ...formData, AadharNumber: e.target.value })
             }
           />
           <div>Gender</div>
@@ -191,6 +125,34 @@ function Registration(props) {
               setFormData({ ...formData, PhoneNumber: e.target.value })
             }
           />
+          <div>Donation Amount</div>
+          <input
+            type="number"
+            className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900
+                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
+                    sm:text-sm sm:leading-6"
+            required
+            placeholder="Enter your donation amount"
+            value={formData.DonationAmount}
+            onChange={(e) =>
+              setFormData({ ...formData, DonationAmount: e.target.value })
+            }
+          />
+          <div>Reason For Donation</div>
+          <input
+            type="text"
+            className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900
+                    shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                    focus:ring-2 focus:ring-inset focus:ring-[#007aff]
+                    sm:text-sm sm:leading-6"
+            required
+            placeholder="Enter your reason for donation"
+            value={formData.ReasonForDonation}
+            onChange={(e) =>
+              setFormData({ ...formData, ReasonForDonation: e.target.value })
+            }
+          />
           <div>
             <button
               className="w-full rounded-lg h-10 px-2 bg-[#007aff] text-white font-semibold text-lg"
@@ -206,4 +168,4 @@ function Registration(props) {
   );
 }
 
-export default Registration;
+export default Donation;

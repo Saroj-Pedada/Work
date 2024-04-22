@@ -234,7 +234,7 @@ function ManageCamps() {
           </div>
         </form>
       </div>
-      <Camps />
+      <Camps isAdmin={true}/>
     </>
   );
 }

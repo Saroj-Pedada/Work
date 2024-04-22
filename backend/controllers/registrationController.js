@@ -1,4 +1,4 @@
-const { addRegistrationQuery, getRegistrationsQuery } = require("../models/registrationModel");
+const { addRegistrationQuery, getRegistrationsQuery , deleteRegistrationQuery } = require("../models/registrationModel");
 
 const addRegistration = async (req, res) => {
     try {
@@ -30,4 +30,19 @@ const getRegistrations = async (req, res) => {
     }
 }
 
-module.exports = { addRegistration , getRegistrations };
+const deleteRegistration = async (req, res) => {
+    try {
+        const res1 = await deleteRegistrationQuery(req.body, res)
+        if (res1) {
+            res.status(200).json("Data Deleted Successfully");
+        } else {
+            res.status(500).json("Failed to delete Data");
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: "An error occurred"
+        });
+    }
+}
+
+module.exports = { addRegistration , getRegistrations , deleteRegistration};

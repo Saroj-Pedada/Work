@@ -115,6 +115,17 @@ function Header(props) {
                   }}
                   className="hover:text-gray-300 cursor-pointer"
                 >
+                  Donate
+                </div>
+              </li>
+              <li>
+                <div
+                  onClick={() => {
+                    props.setActive(6);
+                    if (window.innerWidth < 1024) toggleMenu();
+                  }}
+                  className="hover:text-gray-300 cursor-pointer"
+                >
                   About Us
                 </div>
               </li>

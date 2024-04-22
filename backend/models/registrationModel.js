@@ -102,7 +102,43 @@ const addRegistrationQuery = async (reqParams, res) => {
   }
 };
 
+const deleteRegistrationQuery = async (reqParams, res) => {
+  try {
+    const ID = reqParams.Id;
+    const registrationData = await getRegistrationsQuery();
+    const deleteIndex = registrationData.findIndex((employee) => employee.Id === ID);
+    if (deleteIndex === -1) {
+      return "Registration not found.";
+    }
+    registrationData.splice(deleteIndex, 1);
+    const serviceAccountAuth = new JWT({
+      email: process.env.GOOGLE_PRIVATE_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+    const doc = new GoogleSpreadsheet(
+      process.env.GOOGLE_SHEET_ID,
+      serviceAccountAuth
+    );
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[1];
+    await sheet.clearRows(1);
+    await sheet.loadHeaderRow();
+    const headers = sheet.headerValues;
+    await sheet.addRow(headers.map((header) => header.value));
+    for (const [index, employee] of registrationData.entries()) {
+      employee.Id = index + 1;
+      await sheet.addRow(Object.values(employee));
+    }
+    return "Registration record deleted and IDs corrected.";
+  } catch (error) {
+    console.error("Error deleting registration record:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   addRegistrationQuery,
   getRegistrationsQuery,
+  deleteRegistrationQuery
 };

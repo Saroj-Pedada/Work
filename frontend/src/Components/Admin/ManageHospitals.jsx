@@ -220,7 +220,7 @@ function ManageHospitals() {
           </div>
         </form>
       </div>
-      <Hospitals />
+      <Hospitals isAdmin={true}/>
     </>
   );
 }

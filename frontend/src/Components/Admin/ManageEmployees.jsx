@@ -127,7 +127,7 @@ function ManageEmployees() {
           </div>
         </form>
       </div>
-      <Employees />
+      <Employees isAdmin={true} />
     </>
   );
 }
