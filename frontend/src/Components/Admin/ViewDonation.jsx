@@ -5,6 +5,7 @@ import LoadingAnim from "../Common/LoadinAnim";
 function ViewDonation() {
   const [loading, setLoading] = useState(false);
   const [donations, setDonations] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     try {
@@ -16,7 +17,7 @@ function ViewDonation() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [reload]);
 
   const handleDelete = (id) => {
     try {
@@ -24,6 +25,7 @@ function ViewDonation() {
       HttpnInstance.post("/donation/deleteDonation", { Id: id }).then(
         () => {
           setLoading(false);
+          setReload(!reload);
         }
       );
     } catch (error) {

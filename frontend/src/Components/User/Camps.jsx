@@ -8,6 +8,22 @@ function Camps(props) {
   const [villages, setVillages] = useState([]);
   const [selectedVillage, setSelectedVillage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(false);
+
+  const handleDelete = (id) => {
+    try {
+      setLoading(true);
+      HttpnInstance.post("/camps/deleteCamp", { Id: id }).then(
+        () => {
+          setLoading(false);
+          setSelectedVillage("");
+          setReload(!reload);
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -17,7 +33,7 @@ function Camps(props) {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     setVillages([...new Set(campData.map((item) => item.Village))]);
@@ -82,12 +98,18 @@ function Camps(props) {
                   </Carousel>
                   <p className="text-sm">Location: {item.Venue}</p>
                   <p className="text-sm">
-                    Date:{" "}
-                    {new Date(
-                      item.Date * 24 * 60 * 60 * 1000
-                    ).toLocaleDateString()}
+                    Date: {item.Date}
                   </p>
-                  {/* <p>{item.Village}</p> */}
+                  {props?.isAdmin &&
+                    <p>
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handleDelete(item.Id)}
+                      >
+                        Delete
+                      </button>
+                    </p>
+                  }
                 </div>
               ))}
           </div>
