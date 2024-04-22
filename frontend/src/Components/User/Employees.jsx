@@ -64,6 +64,9 @@ function Employees(props) {
             <p>Designation: {foundEmployee.Designation}</p>
             <p>Phone: {foundEmployee.PhoneNumber}</p>
             <p>Location: {foundEmployee.Location}</p>
+            {props?.role
+              ? props.role === "admin" && <p>Role: {foundEmployee.Role}</p>
+              : null}
           </div>
         </div>
       )}
