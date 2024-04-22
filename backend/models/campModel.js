@@ -2,6 +2,14 @@ require("dotenv").config();
 const { GoogleSpreadsheet } = require("google-spreadsheet");
 const { JWT } = require("google-auth-library");
 
+function convertDateFormat(dateString) {
+  const parts = dateString.split('-');
+  const year = parts[0];
+  const month = parts[1];
+  const day = parts[2];
+  return `${day}-${month}-${year}`;
+}
+
 const addCampQuery = async (reqParams, res) => {
   try {
     const serialNumber = await getCampsQuery().then((data) => {
@@ -33,7 +41,8 @@ const addCampQuery = async (reqParams, res) => {
     rowData[headers[2]] = venue;
     rowData[headers[3]] = village;
     rowData[headers[4]] = imageString;
-    rowData[headers[5]] = String(date);
+    const formattedDate = convertDateFormat(date);
+    rowData[headers[5]] = formattedDate;
     await sheet.addRow(rowData);
     return "Data has been added";
   } catch (error) {
