@@ -62,8 +62,7 @@ const addEmployeeQuery = async (reqParams, res) => {
       serviceAccountAuth
     );
     await doc.loadInfo();
-    const sheet = doc.
-      ByIndex[3];
+    const sheet = doc.sheetsByIndex[3];
     await sheet.loadHeaderRow();
     const headers = sheet.headerValues;
     const rowData = {};
