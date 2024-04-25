@@ -8,27 +8,29 @@ const AboutUs = () => {
           About the Organisation
         </h2>
         <p className="mt-3 text-lg text-s;ate-700 leading-7 text-gray-800">
-          Namaste! Welcome to Shri CSM Multipurpose Organisation, where we
-          believe "Arogya hich Sampathi" - Health is true wealth. We are a humble
-          group working for our villages, organizing free medical camps across
-          Maharashtra. With the support of local hospitals, we aim to keep our villages
-          healthy and strong. We want everyone to know how to take care of
-          themselves and their families. Our mission is to make sure every person 
-          in our village has access to good health. Join us in our mission towards a 
-          healthier community.<br /><br />
-          Shri. Chhatrapati Shahu Maharaj Multipurpose Institution, Dist. Dr. Nominated 
-          in Nagpur by Amravati. The medical service scheme is being implemented in 
-          association with the panel. In this scheme, all the people including 
-          ration card holders, small landholders and middle class people can benefit 
-          from it. And under this scheme, a discount of 30 to 50 percent will be 
-          given at medical hospitals in the panel.<br /><br />
-          However, all citizens should take full advantage of the opportunity 
-          by getting complete information from the coordinator or supervisor who 
-          comes to them. Please support this program.
+          Welcome to Shri Chhatrapati Shahu Maharaj Multipurpose Organisation, Amravati, with registration number 515/12 and file number 29813.
+          Our head office is located near Panchshil Chowk, Tapovan, Yogiraj Nagar, Amravati, Maharashtra 444602.
+          <br />
+          <br />
+          Here, we believe that health is wealth. We are a humble group dedicated to serving our villages by organizing
+          free medical camps across Maharashtra. With the support of local hospitals, we aim to foster the health and
+          strength of our villages. We strive to empower everyone with the knowledge and resources to care for themselves
+          and their families. Our mission is to ensure that every person in our village has access to good health.
+          Join us in our journey towards a healthier community.
+          <br />
+          <br />
+          Shri Chhatrapati Shahu Maharaj Multipurpose Institution, located in Amravati district, Maharashtra, implements
+          the medical service scheme in collaboration with a panel of doctors. This scheme benefits all individuals,
+          including ration cardholders and middle-class people. Under this scheme, eligible individuals can avail a
+          discount of 30 to 50 percent at hospitals within the panel.
+          <br />
+          <br />
+          It is essential for all citizens to take full advantage of this opportunity by acquiring comprehensive information
+          from the coordinator or supervisor who visits them. Please support this program.
         </p>
         <p className="mt-8">
-          For any questions or if you want to join hands with us, call us at{" "}
-          <span className="font-semibold">#####</span>
+          For any questions or if you want to join hands with
+          <span className="font-semibold">csm@csmmultipurposeorganisation.com</span>
         </p>
       </div>
     </div>

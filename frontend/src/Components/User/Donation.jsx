@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import HttpnInstance from "../Api/nodeapi";
 import LoadingAnim from "../Common/LoadinAnim";
+import image from "../../images/PaymentQR.jpg";
 
 function Donation(props) {
   const [loading, setLoading] = useState(false);
@@ -126,6 +127,8 @@ function Donation(props) {
             }
           />
           <div>Donation Amount</div>
+          <img className="" src={image} alt="Payment QR Code" />
+          <p className="text-center text-red-700">**Please pay by scanning the above QR Code**</p>
           <input
             type="number"
             className="block w-full h-10 rounded-md border-0 px-2 py-1.5 text-gray-900
