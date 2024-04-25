@@ -5,6 +5,7 @@ import LoadingAnim from "../Common/LoadinAnim";
 function ViewRegistration() {
   const [loading, setLoading] = useState(false);
   const [registrations, setRegistrations] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     try {
@@ -16,7 +17,7 @@ function ViewRegistration() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [reload]);
 
   const handleDelete = (id) => {
     try {
@@ -24,6 +25,7 @@ function ViewRegistration() {
       HttpnInstance.post("/registration/deleteRegistration", { Id: id }).then(
         () => {
           setLoading(false);
+          setReload(!reload)
         }
       );
     } catch (error) {
