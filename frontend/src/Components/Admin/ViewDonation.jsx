@@ -42,14 +42,14 @@ function ViewDonation() {
           <thead>
             <tr>
               <th className="p-4 ring-1 ring-inset ring-blue-500">Name</th>
-              <th className="ring-1 ring-inset ring-blue-500">Address</th>
-              <th className="ring-1 ring-inset ring-blue-500">Gender</th>
-              <th className="ring-1 ring-inset ring-blue-500">Age</th>
-              <th className="ring-1 ring-inset ring-blue-500">Phone Number</th>
-              <th className="ring-1 ring-inset ring-blue-500">Amount</th>
-              <th className="ring-1 ring-inset ring-blue-500">Reason</th>
-              <th className="ring-1 ring-inset ring-blue-500">Date</th>
-              <th className="ring-1 ring-inset ring-blue-500">Action</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Address</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Gender</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Age</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Phone Number</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Amount</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Reason</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Date</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Action</th>
             </tr>
           </thead>
           <tbody className="text-center">
@@ -59,28 +59,28 @@ function ViewDonation() {
                   <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.FullName}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.Address}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.Gender}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.Age}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.PhoneNumber}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.DonationAmount}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.ReasonForDonation}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {donation.Date}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     <button
                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       onClick={() => handleDelete(donation.Id)}

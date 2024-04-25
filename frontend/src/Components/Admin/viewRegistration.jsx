@@ -42,16 +42,16 @@ function ViewRegistration() {
           <thead>
             <tr>
               <th className="p-4 ring-1 ring-inset ring-blue-500">Name</th>
-              <th className="ring-1 ring-inset ring-blue-500">Address</th>
-              <th className="ring-1 ring-inset ring-blue-500">Taluka</th>
-              <th className="ring-1 ring-inset ring-blue-500">District</th>
-              <th className="ring-1 ring-inset ring-blue-500">Village</th>
-              <th className="ring-1 ring-inset ring-blue-500">Aadhar Number</th>
-              <th className="ring-1 ring-inset ring-blue-500">Gender</th>
-              <th className="ring-1 ring-inset ring-blue-500">Age</th>
-              <th className="ring-1 ring-inset ring-blue-500">Phone Number</th>
-              <th className="ring-1 ring-inset ring-blue-500">Date</th>
-              <th className="ring-1 ring-inset ring-blue-500">Action</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Address</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Taluka</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">District</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Village</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Aadhar Number</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Gender</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Age</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Phone Number</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Date</th>
+              <th className="p-4 ring-1 ring-inset ring-blue-500">Action</th>
             </tr>
           </thead>
           <tbody className="text-center">
@@ -61,34 +61,34 @@ function ViewRegistration() {
                   <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.FullName}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.Address}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.Taluka}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.District}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.Village}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.AadharNumber}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.Gender}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.Age}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.PhoneNumber}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     {registration.Date}
                   </td>
-                  <td className="ring-1 ring-inset ring-blue-500">
+                  <td className="p-5 ring-1 ring-inset ring-blue-500">
                     <button
                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       onClick={() => handleDelete(registration.Id)}
