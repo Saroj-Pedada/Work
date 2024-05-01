@@ -6,6 +6,7 @@ import ManageCamps from "./Components/Admin/ManageCamps";
 import Auth from "./Components/Admin/Auth";
 import ManageEmployees from "./Components/Admin/ManageEmployees";
 import ViewDonation from "./Components/Admin/ViewDonation";
+import ViewWork from "./Components/Admin/viewWork";
 import React, { useEffect, useState } from "react";
 
 function AdminAuth() {
@@ -34,6 +35,7 @@ function AdminAuth() {
             {active === 3 && <ManageHospitals />}
             {active === 4 && <ManageEmployees />}
             {active === 5 && <ViewDonation/>}
+            {active === 6 && <ViewWork/>}
           </>
         ) : (
           <Auth setLoggedIn={setLoggedIn} />

@@ -6,6 +6,7 @@ import Hospitals from "./Components/User/Hospitals";
 import Registration from "./Components/User/Registration";
 import Employees from "./Components/User/Employees";
 import Donation from "./Components/User/Donation";
+import WorkRegistration from "./Components/User/WorkRegistration";
 import React, { useState } from "react";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         {active === 3 && <Hospitals />}
         {active === 4 && <Donation />}
         {active === 5 && <Employees />}
+        {active === 7 && <WorkRegistration />}
         {active === 6 && <AboutUs />}
       </div>
       <Footer />

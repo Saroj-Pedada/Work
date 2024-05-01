@@ -7,7 +7,7 @@ function convertDateFormat(dateString) {
   const year = parts[0];
   const month = parts[1];
   const day = parts[2];
-  return `${day}-${month}-${year}`;
+  return `${day}.${month}.${year}`;
 }
 
 const addCampQuery = async (reqParams, res) => {

@@ -63,10 +63,10 @@ const addRegistrationQuery = async (reqParams, res) => {
     const dateString =
       (day < 10 ? "0" : "") +
       day +
-      "-" +
+      "." +
       (month < 10 ? "0" : "") +
       month +
-      "-" + 
+      "." + 
       year;
     console.log("Todays Date ----> ",dateString)
     const serviceAccountAuth = new JWT({

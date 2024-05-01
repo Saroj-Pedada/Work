@@ -11,6 +11,7 @@ const registrationRouter = require("./routes/registrationRouter");
 const hospitalRouter = require("./routes/hospitalRouter");
 const employeeRouter = require("./routes/employeeRouter");
 const donationRouter = require("./routes/donationRouter");
+const workRegistrationRouter = require("./routes/workRegistrationRouter");
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use("/registration", registrationRouter);
 app.use("/hospital", hospitalRouter);
 app.use("/employee", employeeRouter);
 app.use("/donation", donationRouter);
+app.use("/workRegistration", workRegistrationRouter);
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const adminUser = { id: 1, username: process.env.ADMIN_USERNAME, password: process.env.ADMIN_PASSWORD };
