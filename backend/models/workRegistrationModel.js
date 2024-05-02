@@ -4,10 +4,50 @@ const { JWT } = require("google-auth-library");
 
 function convertDateFormat(dateString) {
   const parts = dateString.split("-");
-  const year = parts[0];
+  const year = parts[2];
   const month = parts[1];
-  const day = parts[2];
+  const day = parts[0];
   return `${day}.${month}.${year}`;
+}
+
+const getEmployeesQuery = async () => {
+  try {
+    const serviceAccountAuth = new JWT({
+      email: process.env.GOOGLE_PRIVATE_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+    const doc = new GoogleSpreadsheet(
+      process.env.GOOGLE_SHEET_ID,
+      serviceAccountAuth
+    );
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[3];
+    await sheet.loadCells();
+    const rows = sheet.rowCount;
+    const cols = sheet.columnCount;
+    const data = [];
+    const headers = [];
+    for (let j = 0; j < cols; j++) {
+      const cell = sheet.getCell(0, j);
+      headers.push(cell.value);
+    }
+    for (let i = 1; i < rows; i++) {
+      const firstCell = sheet.getCell(i, 0);
+      if (!firstCell.value) {
+        break;
+      }
+      const rowData = {};
+      for (let j = 0; j < cols; j++) {
+        const cell = sheet.getCell(i, j);
+        rowData[headers[j]] = cell.value;
+      }
+      data.push(rowData);
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const getRegistrationsQuery = async () => {
@@ -52,9 +92,7 @@ const getRegistrationsQuery = async () => {
 
 const addRegistrationQuery = async (reqParams, res) => {
   try {
-    const serialNumber = await getRegistrationsQuery().then((data) => {
-      return data.length + 1;
-    });
+    const employeeData = await getEmployeesQuery();
     const {
       EmpId,
       EmpName,
@@ -64,6 +102,14 @@ const addRegistrationQuery = async (reqParams, res) => {
       PresidentPhone,
       Cards,
     } = reqParams;
+    const existingEmployee = employeeData.find(employee => employee.EmpId === EmpId);
+    if (!existingEmployee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+    if (existingEmployee.PhoneNumber !== EmpPhone) {
+      return res.status(404).json({ message: "Employee Phone number does not match" });
+    }
+    const serialNumber = employeeData.length + 1;
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth() + 1;
@@ -76,7 +122,9 @@ const addRegistrationQuery = async (reqParams, res) => {
       month +
       "-" +
       year;
+
     console.log("Todays Date ----> ", dateString);
+
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_PRIVATE_EMAIL,
       key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -107,6 +155,7 @@ const addRegistrationQuery = async (reqParams, res) => {
     console.log(error);
   }
 };
+
 
 const deleteRegistrationQuery = async (reqParams, res) => {
   try {
