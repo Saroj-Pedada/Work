@@ -102,7 +102,7 @@ const addRegistrationQuery = async (reqParams, res) => {
       PresidentPhone,
       Cards,
     } = reqParams;
-    const existingEmployee = employeeData.find(employee => employee.EmpId === EmpId);
+    const existingEmployee = employeeData.find(employee => employee.EmpNo === EmpId);
     if (!existingEmployee) {
       return res.status(404).json({ message: "Employee not found" });
     }
