@@ -38,7 +38,17 @@ function WorkRegistration(props) {
     }
     try {
       setLoading(true);
-      HttpnInstance.post("/workRegistration/addUserData", formData).then(() => {
+      HttpnInstance.post("/workRegistration/addUserData", formData).then((res) => {
+        if(res.data === "Employee not found in the database."){
+          setLoading(false);
+          alert("Employee not found in the database!!");
+          return;
+        }
+        if(res.data === "Phone doesnt match"){
+          setLoading(false);
+          alert("Phone number doesn't match!!");
+          return;
+        }
         setLoading(false);
         alert("Work registration successful. Thanks for the entry.");
         setFormData({

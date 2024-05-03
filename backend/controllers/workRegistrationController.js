@@ -3,15 +3,26 @@ const { addRegistrationQuery, getRegistrationsQuery , deleteRegistrationQuery } 
 const addRegistration = async (req, res) => {
     try {
         const res1 = await addRegistrationQuery(req.body, res)
-        if (res1) {
+        if (res1=="Employee not found in the database.") {
+            res.status(200).json("Employee not found in the database.");
+            return;
+        } else if (res1=="Phone doesnt match") {
+            res.status(200).json("Phone doesnt match");
+            return;
+        }
+        else if (res1) {
             res.status(200).json("Data Added Successfully");
-        } else {
-            res.status(500).json("Failed to add Data");
+            return;
+        }
+        else {
+            res.status(200).json("Failed to add Data");
+            return;
         }
     } catch (error) {
-        res.status(500).json({
+        res.status(200).json({
             error: "An error occurred"
         });
+        return;
     }
 };
 

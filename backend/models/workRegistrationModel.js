@@ -102,14 +102,16 @@ const addRegistrationQuery = async (reqParams, res) => {
       PresidentPhone,
       Cards,
     } = reqParams;
-    const existingEmployee = employeeData.find(employee => employee.EmpNo === EmpId);
+    console.log(employeeData)
+    const existingEmployee = employeeData.find(employee => employee.EmpNo == EmpId);
     if (!existingEmployee) {
-      return res.status(404).json({ message: "Employee not found" });
+      return "Employee not found in the database.";
     }
-    if (existingEmployee.PhoneNumber !== EmpPhone) {
-      return res.status(404).json({ message: "Employee Phone number does not match" });
+    if (existingEmployee.PhoneNumber != EmpPhone) {
+      return "Phone doesnt match";
     }
-    const serialNumber = employeeData.length + 1;
+    const registrationData = await getRegistrationsQuery();
+    const serialNumber = registrationData.length + 1;
     let today = new Date();
     let year = today.getFullYear();
     let month = today.getMonth() + 1;
