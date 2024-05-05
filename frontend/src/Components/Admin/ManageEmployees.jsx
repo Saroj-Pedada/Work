@@ -27,7 +27,12 @@ function ManageEmployees() {
       return;
     }
     try {
-      HttpnInstance.post("/employee/addEmployee", formData).then(() => {
+      HttpnInstance.post("/employee/addEmployee", formData).then((res) => {
+        if (res.data === "Employee already exists") {
+          setLoading(false);
+          alert("Employee already exists!!");
+          return;
+        }
         setLoading(false);
         alert("Employee addition Successful");
         setFormData({

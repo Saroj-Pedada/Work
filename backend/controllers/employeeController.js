@@ -1,12 +1,18 @@
-const { addEmployeeQuery, getEmployeesQuery , deleteEmployeesQuery } = require("../models/employeeModel");
+const { addEmployeeQuery, getEmployeesQuery, deleteEmployeesQuery } = require("../models/employeeModel");
 
 const addEmployee = async (req, res) => {
     try {
         const res1 = await addEmployeeQuery(req.body, res)
-        if (res1) {
+        if (res1 == "Employee already exists") {
+            res.status(200).json("Employee already exists");
+            return;
+        }
+        else if (res1 == "Data has been added") {
             res.status(200).json("Data Added Successfully");
+            return;
         } else {
             res.status(500).json("Failed to add Data");
+            return;
         }
     } catch (error) {
         res.status(500).json({
@@ -45,4 +51,4 @@ const deleteEmployee = async (req, res) => {
     }
 }
 
-module.exports = { addEmployee , getEmployees , deleteEmployee};
+module.exports = { addEmployee, getEmployees, deleteEmployee };

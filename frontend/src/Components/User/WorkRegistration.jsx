@@ -39,14 +39,24 @@ function WorkRegistration(props) {
     try {
       setLoading(true);
       HttpnInstance.post("/workRegistration/addUserData", formData).then((res) => {
-        if(res.data === "Employee not found in the database."){
+        if (res.data === "Employee not found in the database.") {
           setLoading(false);
           alert("Employee not found in the database!!");
           return;
         }
-        if(res.data === "Phone doesnt match"){
+        if (res.data === "Phone doesnt match") {
           setLoading(false);
           alert("Phone number doesn't match!!");
+          return;
+        }
+        if (res.data === "Employee has already registered work today.") {
+          setLoading(false);
+          alert("Employee has already registered work today.");
+          return;
+        }
+        if (res.data === "Can't register at this moment") {
+          setLoading(false);
+          alert("Work registration can only be done between 5 PM and 10 PM.");
           return;
         }
         setLoading(false);

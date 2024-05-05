@@ -10,6 +10,12 @@ const addRegistration = async (req, res) => {
             res.status(200).json("Phone doesnt match");
             return;
         }
+        else if (res1=="Employee has already registered work today.") {
+            res.status(200).json("Employee has already registered work today.");
+            return;
+        } else if (res1=="Work registration can only be done between 5 PM and 10 PM.") {
+            res.status(200).json("Can't register at this moment")
+        }
         else if (res1) {
             res.status(200).json("Data Added Successfully");
             return;

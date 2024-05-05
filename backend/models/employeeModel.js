@@ -48,6 +48,11 @@ const addEmployeeQuery = async (reqParams, res) => {
       return data.length + 1;
     })
     const EmpNo = reqParams.EmpId;
+    // check if this id already exists
+    const existingEmployee = (await getEmployeesQuery()).find(employee => employee.EmpNo === EmpNo);
+    if (existingEmployee) {
+      return "Employee already exists";
+    }
     const Name = reqParams.Name;
     const PhoneNumber = reqParams.PhoneNumber;
     const Designation = reqParams.Designation;

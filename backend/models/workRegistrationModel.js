@@ -102,30 +102,36 @@ const addRegistrationQuery = async (reqParams, res) => {
       PresidentPhone,
       Cards,
     } = reqParams;
-    console.log(employeeData)
+    
+    // Check if the employee exists
     const existingEmployee = employeeData.find(employee => employee.EmpNo == EmpId);
     if (!existingEmployee) {
       return "Employee not found in the database.";
     }
-    if (existingEmployee.PhoneNumber != EmpPhone) {
-      return "Phone doesnt match";
-    }
-    const registrationData = await getRegistrationsQuery();
-    const serialNumber = registrationData.length + 1;
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-    const dateString =
-      (day < 10 ? "0" : "") +
-      day +
-      "-" +
-      (month < 10 ? "0" : "") +
-      month +
-      "-" +
-      year;
 
-    console.log("Todays Date ----> ", dateString);
+    // Check if the provided phone number matches the employee's phone number
+    if (existingEmployee.PhoneNumber != EmpPhone) {
+      return "Phone number doesn't match.";
+    }
+
+    // Check if the employee has already registered work for today
+    const registrationData = await getRegistrationsQuery();
+    const today = new Date();
+    const todayDateString = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+    const existingRegistrationToday = registrationData.find(registration => registration.EmpId === EmpId && registration.Date === todayDateString);
+    if (existingRegistrationToday) {
+      return "Employee has already registered work today.";
+    }
+
+    // Check if the current time is between 5 PM and 10 PM
+    const currentHour = today.getHours();
+    if (currentHour < 17 || currentHour >= 22) {
+      return "Work registration can only be done between 5 PM and 10 PM.";
+    }
+
+    // Proceed with adding the registration
+    const serialNumber = registrationData.length + 1;
+    const dateString = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
 
     const serviceAccountAuth = new JWT({
       email: process.env.GOOGLE_PRIVATE_EMAIL,
@@ -140,7 +146,6 @@ const addRegistrationQuery = async (reqParams, res) => {
     const sheet = doc.sheetsByIndex[5];
     await sheet.loadHeaderRow();
     const headers = sheet.headerValues;
-    console.log(headers);
     const rowData = {};
     rowData[headers[0]] = serialNumber;
     rowData[headers[1]] = EmpId;
@@ -157,7 +162,6 @@ const addRegistrationQuery = async (reqParams, res) => {
     console.log(error);
   }
 };
-
 
 const deleteRegistrationQuery = async (reqParams, res) => {
   try {
