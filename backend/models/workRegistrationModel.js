@@ -124,10 +124,10 @@ const addRegistrationQuery = async (reqParams, res) => {
     }
 
     // Check if the current time is between 5 PM and 10 PM
-    const currentHour = today.getHours();
-    if (currentHour < 17 || currentHour >= 22) {
-      return "Work registration can only be done between 5 PM and 10 PM.";
-    }
+   // const currentHour = today.getHours();
+   // if (currentHour < 17 || currentHour >= 22) {
+  //  return "Work registration can only be done between 5 PM and 10 PM.";
+    //}
 
     // Proceed with adding the registration
     const serialNumber = registrationData.length + 1;
