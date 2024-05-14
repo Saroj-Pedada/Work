@@ -5,8 +5,8 @@ const { JWT } = require("google-auth-library");
 function convertDateFormat(dateString) {
   const parts = dateString.split("-");
   const year = parts[2];
-  const month = parts[1];
-  const day = parts[0];
+  const month = parts[1].padStart(2, '0'); // Padding month with leading zero
+  const day = parts[0].padStart(2, '0'); // Padding day with leading zero
   return `${day}.${month}.${year}`;
 }
 
