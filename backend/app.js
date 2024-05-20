@@ -18,11 +18,13 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:3000",
+    "http://localhost:3000/admin",
     "http://localhost:3002",
     "https://medicalcamp-backend.onrender.com",
     "https://csm-multipurpose-organisation.vercel.app",
     "https://csm-backend.adaptable.app",
     "https://csmmultipurposeorganisation.com",
+    "https://csmmultipurposeorganisation.com/admin",
   ],
   credentials: true,
   optionSuccessStatus: 200,

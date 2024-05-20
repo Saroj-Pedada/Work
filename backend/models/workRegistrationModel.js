@@ -117,7 +117,7 @@ const addRegistrationQuery = async (reqParams, res) => {
     // Check if the employee has already registered work for today
     const registrationData = await getRegistrationsQuery();
     const today = new Date();
-    const todayDateString = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+    const todayDateString = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
     const existingRegistrationToday = registrationData.find(registration => registration.EmpId === EmpId && registration.Date === todayDateString);
     if (existingRegistrationToday) {
       return "Employee has already registered work today.";

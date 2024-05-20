@@ -44,7 +44,7 @@ function WorkRegistration(props) {
           alert("Employee not found in the database!!");
           return;
         }
-        if (res.data === "Phone doesnt match") {
+        if (res.data === "Phone number doesn't match.") {
           setLoading(false);
           alert("Phone number doesn't match!!");
           return;
