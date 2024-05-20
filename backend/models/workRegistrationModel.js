@@ -5,8 +5,8 @@ const { JWT } = require("google-auth-library");
 function convertDateFormat(dateString) {
   const parts = dateString.split("-");
   const year = parts[2];
-  const month = parts[1];
-  const day = parts[0];
+  const month = parts[1].padStart(2, '0'); // Padding month with leading zero
+  const day = parts[0].padStart(2, '0'); // Padding day with leading zero
   return `${day}.${month}.${year}`;
 }
 
@@ -119,14 +119,9 @@ const addRegistrationQuery = async (reqParams, res) => {
     const today = new Date();
     const todayDateString = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
     const existingRegistrationToday = registrationData.find(registration => registration.EmpId === EmpId && registration.Date === todayDateString);
+    
     if (existingRegistrationToday) {
       return "Employee has already registered work today.";
-    }
-
-    // Check if the current time is between 5 PM and 10 PM
-    const currentHour = today.getHours();
-    if (currentHour < 17 || currentHour >= 22) {
-      return "Work registration can only be done between 5 PM and 10 PM.";
     }
 
     // Proceed with adding the registration
