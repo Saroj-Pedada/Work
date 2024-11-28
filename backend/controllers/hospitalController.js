@@ -1,48 +1,87 @@
-const { addHospitalQuery, getHospitalsQuery, deleteHospitalQuery } = require("../models/hospitalModel");
+const pool = require('../utils/db');
 
-const addHospital = async (req, res) => {
-    try {
-        const res1 = await addHospitalQuery(req.body, res)
-        if (res1) {
-            res.status(200).json("Data Added Successfully");
+const createHospital = (req, res) => {
+    const { name, location, images, village } = req.body;
+    const query = {
+        text: `INSERT INTO hospitals (id, name, location, images, village, active_status) VALUES (DEFAULT, $1, $2, $3, $4, TRUE) RETURNING *`,
+        values: [name, location, images, village]
+    };
+    pool.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal Server Error' });
         } else {
-            res.status(500).json("Failed to add Data");
+            res.status(200).send(result.rows[0]);
         }
-    } catch (error) {
-        res.status(500).json({
-            error: "An error occurred"
-        });
-    }
+    });
 };
 
-const getHospitals = async (req, res) => {
-    try {
-        const res1 = await getHospitalsQuery(req.body, res)
-        if (res1) {
-            res.status(200).json(res1);
+const getHospitals = (req, res) => {
+    const query = {
+        text: 'SELECT * FROM hospitals WHERE active_status = TRUE',
+        values: []
+    };
+    pool.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal Server Error' });
         } else {
-            res.status(500).json("Failed to get Data");
+            res.status(200).send(result.rows);
         }
-    } catch (error) {
-        res.status(500).json({
-            error: "An error occurred"
-        });
-    }
+    });
 };
 
-const deleteHospital = async (req, res) => {
-    try {
-        const res1 = await deleteHospitalQuery(req.body, res)
-        if (res1) {
-            res.status(200).json("Data Deleted Successfully");
+const getHospitalsByVillage = (req, res) => {
+    const { villageId } = req.body;
+    const query = {
+        text: 'SELECT * FROM hospitals WHERE village = $1 AND active_status = TRUE',
+        values: [villageId]
+    };
+    pool.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal Server Error' });
         } else {
-            res.status(500).json("Failed to delete Data");
+            res.status(200).send(result.rows);
         }
-    } catch (error) {
-        res.status(500).json({
-            error: "An error occurred"
-        });
-    }
+    });
 };
 
-module.exports = { addHospital, getHospitals, deleteHospital };
+const deleteHospital = (req, res) => {
+    const { id } = req.body;
+    const query = {
+        text: 'UPDATE hospitals SET active_status = FALSE WHERE id = $1',
+        values: [id]
+    };
+    pool.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal Server Error' });
+        } else {
+            res.status(200).send({ message: 'Hospital deleted successfully' });
+        }
+    });
+};
+
+const getHospitalVillages = (req, res) => {
+    const query = {
+        text: 'SELECT DISTINCT village FROM hospitals WHERE active_status = TRUE',
+        values: []
+    };
+    pool.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal Server Error' });
+        } else {
+            res.status(200).send(result.rows);
+        }
+    });
+};
+
+module.exports = {
+    createHospital,
+    getHospitals,
+    getHospitalsByVillage,
+    deleteHospital,
+    getHospitalVillages
+};

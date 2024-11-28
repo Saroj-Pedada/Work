@@ -1,10 +1,12 @@
-const express = require("express");
-const { addHospital, getHospitals, deleteHospital} = require("../controllers/hospitalController");
+const express = require('express');
 const router = express.Router();
 
-router.post('/addHospital', addHospital);
-router.post('/deleteHospital', deleteHospital);
+const { createHospital, getHospitals, getHospitalsByVillage, deleteHospital, getHospitalVillages } = require('../controllers/hospitalController');
+
+router.post('/createHospital', createHospital);
 router.post('/getHospitals', getHospitals);
+router.post('/getHospitalsByVillage', getHospitalsByVillage);
+router.post('/deleteHospital', deleteHospital);
+router.post('/getHospitalVillages', getHospitalVillages);
 
-
-module.exports=router
+module.exports = router;

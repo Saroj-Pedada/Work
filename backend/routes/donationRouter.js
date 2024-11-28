@@ -1,10 +1,10 @@
-const express = require("express");
-const { addDonation , getDonations , deleteDonation } = require("../controllers/donationController");
+const express = require('express');
 const router = express.Router();
 
-router.post('/addUserData', addDonation);
-router.post('/viewDonations', getDonations);
+const { getDonations, addDonation, deleteDonation } = require('../controllers/donationController.js');
+
+router.post('/getDonations', getDonations);
+router.post('/addDonation', addDonation);
 router.post('/deleteDonation', deleteDonation);
 
-
-module.exports=router
+module.exports = router;

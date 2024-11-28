@@ -5,17 +5,13 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Cookies from 'js-cookie'
 
 const navigation = [
-  { name: 'Registrations' },
   { name: 'Camps' },
   { name: 'Hospitals' },
   { name: 'Employees' },
-  { name: 'Donations' },
-  { name: 'Work' },
-  { name: 'President' },
   { name: 'Profile' },
 ]
 
-function AdminHeader(props) {
+function UserHeader(props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -44,7 +40,7 @@ function AdminHeader(props) {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <div key={item.name} onClick={() => props.setVarAdminRoles(item.name.toLowerCase())} className="text-sm/6 font-semibold text-gray-900">
+              <div key={item.name} onClick={() => props.setVarUserRoles(item.name.toLowerCase())} className="text-sm/6 font-semibold text-gray-900">
                 {item.name}
               </div>
             ))}
@@ -79,10 +75,10 @@ function AdminHeader(props) {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  {navigation?.map((item) => (
+                  {navigation.map((item) => (
                     <div
                       key={item.name}
-                      onClick={() => { props.setVarAdminRoles(item.name.toLowerCase()); setMobileMenuOpen(false) }}
+                      onClick={() => { props.setVarUserRoles(item.name.toLowerCase()); setMobileMenuOpen(false) }}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                     >
                       {item.name}
@@ -94,7 +90,7 @@ function AdminHeader(props) {
                     onClick={() => props.setUserRole('login')}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
-                    Log in
+                    Log out
                   </div>
                 </div>
               </div>
@@ -106,4 +102,4 @@ function AdminHeader(props) {
   )
 }
 
-export default AdminHeader
+export default UserHeader

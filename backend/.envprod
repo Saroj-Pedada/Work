@@ -1,0 +1,10 @@
+PORT=3002
+POSTGRES_USER=csm-backend-main-db-08b621009db138ac2
+POSTGRES_PASSWORD=q3NER1bmga1bEx7dkRPfy1QEE6rZwx
+POSTGRES_DB=csm-backend-main-db-08b621009db138ac2
+POSTGRES_PORT=5432
+POSTGRES_HOST=user-prod-us-east-2-1.cluster-cfi5vnucvv3w.us-east-2.rds.amazonaws.com
+ACCESS_TOKEN_SECRET=csmmultipurposeorganisation
+EMAIL_USER=csm@csmmultipurposeorganisation.com
+EMAIL_PASS=CSM@abc123
+NODE_ENV=production
