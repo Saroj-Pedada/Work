@@ -16,7 +16,7 @@ const { createTables } = require('./utils/db');
 const bodyParser = require("body-parser");
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://csmmultipurposeorganisation.com',
     methods: ['GET', 'POST'],
     credentials: true,
     optionsSuccessStatus: 200
