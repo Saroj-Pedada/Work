@@ -6,7 +6,8 @@ const apiUrl = 'https://csm-backend.adaptable.app';
 const HttpnInstance = axios.create({
   baseURL: apiUrl,
   headers: {
-    'Accept': '*/*',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
   },
   withCredentials: true,
 });
