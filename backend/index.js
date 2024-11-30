@@ -37,6 +37,10 @@ app.use("/donation", donationRouter);
 app.use("/president", presidentRouter);
 createTables();
 
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
 // Endpoint to send OTP and set it as a cookie
 app.post('/send-otp', async (req, res) => {
     const { email } = req.body;
