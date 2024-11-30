@@ -2,10 +2,10 @@ const { pool } = require("../utils/db");
 
 const addPresident = async (req, res) => {
     try {
-        const { name, phone, village, taluka, district } = req.body;
+        const { name, phone, village, taluka, district, gramsevak_name } = req.body;
         const newPresident = await pool.query(
-            'INSERT INTO president_data (name, president_name, president_number, village, taluka, district, active_status) VALUES ($1, $2, $3, $4, $5, $6, TRUE) RETURNING *',
-            [name, phone, village, taluka, district]
+            'INSERT INTO president_data (name, president_name, president_number, village, taluka, district, active_status, gramsevak_name) VALUES ($1, $2, $3, $4, $5, $6, TRUE, $7) RETURNING *',
+            [name, phone, village, taluka, district, gramsevak_name]
         );
         res.status(201).json(newPresident.rows[0]);
     } catch (error) {

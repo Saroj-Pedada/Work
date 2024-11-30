@@ -85,9 +85,9 @@ function WorkRegistration() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      {/* <div className="sm:mx-auto sm:w-full sm:max-w-lg">
+      {!varNoData && <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Work Registration</h1>
-      </div> */}
+      </div>}
       {varNoData && !varAddOverlay && (
         <div className="text-center mt-10 text-2xl font-bold flex flex-col justify-center w-full items-center tracking-tight text-gray-900">No Work Data
           <div className="px-6 py-3 w-full flex justify-center">

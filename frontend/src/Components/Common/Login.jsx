@@ -1,13 +1,14 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import HttpnInstance from '../Api/nodeapi';
 
 const handleSubmit = (e, setVarReload, varReload) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     try {
-        axios.post('http://localhost:3002/auth/login', { email, password })
+        HttpnInstance.post('/auth/login', { email, password })
             .then(response => {
                 Cookies.set('user', response.data.token);
                 try {

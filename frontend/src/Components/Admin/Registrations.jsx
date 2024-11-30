@@ -90,10 +90,10 @@ function Registrations() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      {/* <div className="sm:mx-auto sm:w-full sm:max-w-lg">
-        <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">user Registration</h1>
-      </div> */}
-      {varNoData && (<div className="text-center mt-10 text-2xl font-bold tracking-tight text-gray-900">No user Data</div>)}
+      <div className="sm:mx-auto sm:w-full sm:max-w-lg">
+        <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Registrations</h1>
+      </div>
+      {varNoData && (<div className="text-center mt-10 text-2xl font-bold tracking-tight text-gray-900">No Data Found</div>)}
       {!varNoData && varAddOverlay && (
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg">
           <form onSubmit={handleAdduser} className="space-y-6">

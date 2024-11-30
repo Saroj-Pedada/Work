@@ -16,3 +16,4 @@ package-lock.json
 
 /backend/.env
 /backend/.env.production
+/backend/.env.local

@@ -13,6 +13,7 @@ function Hospitals() {
     village: ''
   });
   const [varAddOverlay, setVarAddOverlay] = useState(false);
+  const [varNoData, setVarNoData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [villages, setVillages] = useState([]);
   const [selectedVillage, setSelectedVillage] = useState('');
@@ -51,6 +52,11 @@ function Hospitals() {
   const fetchHospitals = async () => {
     try {
       const response = await HttpnInstance.post('/hospital/getHospitals');
+      if (response.data.length === 0) {
+        setVarNoData(true);
+      } else {
+        setVarNoData(false);
+      }
       setHospitals(response.data);
     } catch (error) {
       console.error('Error fetching hospitals:', error);
@@ -118,7 +124,7 @@ function Hospitals() {
   ) : (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
-        <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Hospitals</h1>
+          <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">{ varNoData ? "No Data Found" : "Hospitals"}</h1>
       </div>
 
       {varAddOverlay ? (
@@ -222,22 +228,22 @@ function Hospitals() {
           >
             Add Hospital
           </button>
-          <select
-            value={selectedVillage}
-            onChange={(e) => setSelectedVillage(e.target.value)}
+              { !varNoData && <select
+                value={selectedVillage}
+                onChange={(e) => setSelectedVillage(e.target.value)}
                 className="flex lg:w-1/4 w-1/2 justify-center rounded-md bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm border focus:ring-indigo-600"
-          >
-            <option value="">All Villages</option>
-            {villages.map((village, index) => (
-              <option key={index} value={village.village}>
-                {village.village}
-              </option>
-            ))}
-          </select>
+              >
+                <option value="">All Villages</option>
+                {villages.map((village, index) => (
+                  <option key={index} value={village.village}>
+                    {village.village}
+                  </option>
+                ))}
+              </select>}
         </div>
       )}
 
-      {!varAddOverlay && (
+      {!varAddOverlay && !varNoData && (
         <div className="mt-10 mx-auto flex flex-col items-center">
           <h3 className="text-xl font-semibold tracking-tight text-gray-900 mb-5">
             {selectedVillage || 'All Villages'}

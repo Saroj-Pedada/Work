@@ -11,10 +11,10 @@ const getDonations = async (req, res) => {
 
 const addDonation = async (req, res) => {
     try {
-        const { amount, date, employee_id, camp_id } = req.body;
+        const {name, address, gender, age, phone, amount, reason} = req.body;
         const newDonation = await pool.query(
-            'INSERT INTO donations (amount, date, employee_id, camp_id) VALUES ($1, $2, $3, $4) RETURNING *',
-            [amount, date, employee_id, camp_id]
+            'INSERT INTO donations (name, address, gender, age, phone, amount, reason, dateofdonation, active_status) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), TRUE) RETURNING *',
+            [name, address, gender, age, phone, amount, reason]
         );
         res.status(201).json(newDonation.rows[0]);
     } catch (error) {

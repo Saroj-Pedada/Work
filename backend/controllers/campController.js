@@ -37,7 +37,7 @@ const deleteCamp = async (req, res) => {
 
 const getCampsByVillage = async (req, res) => {
     try {
-        const village = req.params.village;
+        const village = req.body.villageId;
         const allCamps = await pool.query(
             'SELECT * FROM camps WHERE village = $1 AND active_status = TRUE',
             [village]

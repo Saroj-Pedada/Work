@@ -92,6 +92,7 @@ const createTables = async () => {
   CREATE TABLE IF NOT EXISTS president_data (
     id SERIAL PRIMARY KEY,
     president_name VARCHAR(255) NOT NULL,
+    gramsevak_name VARCHAR(255) NOT NULL,
     president_phone VARCHAR(10) NOT NULL,
     village VARCHAR(255) NOT NULL,
     taluka VARCHAR(255) NOT NULL,

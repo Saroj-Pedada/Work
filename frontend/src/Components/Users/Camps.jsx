@@ -13,6 +13,7 @@ function Camps() {
     village: '',
     dateoforganization: ''
   });
+  const [varNoData, setVarNoData] = useState(true);
   const [varAddOverlay, setVarAddOverlay] = useState(false);
   const [loading, setLoading] = useState(false);
   const [villages, setVillages] = useState([]);
@@ -34,6 +35,9 @@ function Camps() {
   const fetchVillages = async () => {
     try {
       const response = await HttpnInstance.post('/camp/getCampVillages');
+      if (response.data.length > 0) {
+        setVarNoData(false);
+      }
       setVillages(response.data);
     } catch (error) {
       console.error('Error fetching villages:', error);
@@ -120,7 +124,7 @@ function Camps() {
   ) : (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
-        <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Camps</h1>
+        <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">{varNoData ? 'No Camps Found' : 'Camps'}</h1>
       </div>
 
       {varAddOverlay ? (
@@ -235,8 +239,14 @@ function Camps() {
           </form>
         </div>
       ) : (
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg flex justify-center">
-          <select
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg flex lg:flex-row lg:gap-y-0 flex-col gap-y-3 items-center justify-around">
+          {/* <button
+            onClick={() => setVarAddOverlay(true)}
+            className="flex lg:w-1/4 w-1/2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+          >
+            Add Camp
+          </button> */}
+          {!varNoData && <select
             value={selectedVillage}
             onChange={(e) => setSelectedVillage(e.target.value)}
             className="flex lg:w-1/4 w-1/2 justify-center rounded-md bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm border focus:ring-indigo-600"
@@ -247,11 +257,11 @@ function Camps() {
                 {village.village}
               </option>
             ))}
-          </select>
+          </select>}
         </div>
       )}
 
-      {!varAddOverlay && (
+      {!varAddOverlay && !varNoData && (
         <div className="mt-10 mx-auto flex flex-col items-center">
           <h3 className="text-xl font-semibold tracking-tight text-gray-900 mb-5">
             {selectedVillage || 'All Villages'}

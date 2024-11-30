@@ -6,7 +6,7 @@ const { createCamp, getCamps, deleteCamp, getCampsByVillage, getCampVillages } =
 router.post('/createCamp', createCamp);
 router.post('/getCamps', getCamps);
 router.post('/deleteCamp', deleteCamp);
-router.post('getCampsByVillage', getCampsByVillage);
+router.post('/getCampsByVillage', getCampsByVillage);
 router.post('/getCampVillages', getCampVillages);
 
 module.exports = router;
