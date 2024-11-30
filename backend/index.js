@@ -47,10 +47,10 @@ app.post('/send-otp', async (req, res) => {
     try {
         const otp = await sendOTP(email);
         res.cookie('otp', otp, {
-            httpOnly: true,
+            httpOnly: false,
             maxAge: 15 * 60 * 1000,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict'
+            sameSite: 'None'
         });
 
         res.status(200).send('OTP sent successfully');
