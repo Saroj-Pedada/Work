@@ -16,11 +16,17 @@ const { createTables } = require('./utils/db');
 const bodyParser = require("body-parser");
 
 app.use(cors({
-    origin: 'https://csmmultipurposeorganisation.com',
-    methods: ['GET', 'POST'],
+    origin: [
+        "http://localhost:3000",
+        "http://localhost:3002",
+        "https://medicalcamp-backend.onrender.com",
+        "https://csm-backend.adaptable.app",
+        "https://csmmultipurposeorganisation.com",
+    ],
     credentials: true,
-    optionsSuccessStatus: 200
-}));
+    optionSuccessStatus: 200,
+}
+));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
