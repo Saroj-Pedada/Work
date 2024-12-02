@@ -52,7 +52,7 @@ function WorkRegistration() {
   const handleAddWork = async (e) => {
     e.preventDefault();
     try {
-      HttpnInstance.post('/work/registerWork', { ...newWork, name: "", emp_id: "", phone: "" }).then(() => {
+      HttpnInstance.post('/work/registerWork', newWork ).then(() => {
         console.log('Work added successfully');
         alert('Work added successfully');
         setVarAddOverlay(false);
@@ -207,8 +207,8 @@ function WorkRegistration() {
         </div>
       )}
       {!varNoData && !varAddOverlay && (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
-          <table className="w-full text-sm text-left text-gray-500 notimes:text-gray-400">
+        <div className="relative shadow-md sm:rounded-lg mt-10">
+          <table className="w-full overflow-x-auto  text-sm text-left text-gray-500 notimes:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">Employee ID</th>
