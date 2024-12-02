@@ -18,9 +18,27 @@ function Profile() {
     }).split("at")[0];
   };
 
+  const changePassword = async () => {
+    const newPWD = prompt('Please enter new password');
+    const confirmPWD = prompt('Please confirm new password');
+    if (newPWD !== confirmPWD) {
+      alert('Passwords do not match');
+      return;
+    }
+    try {
+      await HttpnInstance.post('/user/changePassword', { id: varProfile?.id, new_password: newPWD });
+      alert('Password changed successfully');
+      Cookies.remove('user');
+      window.location.href = '/';
+    } catch (error) {
+      console.log('Error fetching profile:', error);
+      alert('Error fetching profile');
+    }
+  };
+
   const fetchProfile = async () => {
     try {
-      const response = await HttpnInstance.post('/user/getProfile', { cookies: Cookies.get('user')});
+      const response = await HttpnInstance.post('/user/getProfile', { cookies: Cookies.get('user') });
       console.log('Profile:', response.data);
       setVarProfile(response.data);
     } catch (error) {
@@ -60,6 +78,7 @@ function Profile() {
             <p className="font-normal text-gray-700 notime:text-gray-400">Date of Registration: {formatDate(varProfile?.dateofregistration)}</p>
           </>
         )}
+        <button className="mt-4 w-1/2 px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-500 rounded-md shadow-sm notime:bg-blue-600 notime:border-blue-600 notime:hover:bg-blue-600" onClick={() => changePassword()}>Change Password</button>
       </div>
     </div>
   );
