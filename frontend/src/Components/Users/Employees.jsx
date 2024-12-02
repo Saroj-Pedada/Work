@@ -31,7 +31,7 @@ function Employees() {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-screen w-full flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold mb-4">Employees</h1>
       <div className="mb-4">
         <input

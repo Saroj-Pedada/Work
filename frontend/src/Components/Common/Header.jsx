@@ -38,7 +38,7 @@ function Header(props) {
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
                         {navigation.map((item) => (
-                            <a key={item.name} onClick={() => props.setUserRole(item.name.toLowerCase())} className="text-sm/6 font-semibold text-gray-900">
+                            <a key={item.name} onClick={() => { setMobileMenuOpen(false); props.setUserRole(item.name.toLowerCase()) }} className="text-sm/6 font-semibold text-gray-900">
                                 {item.name}
                             </a>
                         ))}
@@ -76,7 +76,7 @@ function Header(props) {
                                     {navigation.map((item) => (
                                         <a
                                             key={item.name}
-                                            onClick={() => props.setUserRole(item.name.toLowerCase())}
+                                            onClick={() => { setMobileMenuOpen(false); props.setUserRole(item.name.toLowerCase()) }}
                                             className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                                         >
                                             {item.name}
