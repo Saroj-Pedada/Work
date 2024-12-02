@@ -7,7 +7,8 @@ const {
     createUser,
     deleteUser,
     createEmployee,
-    getProfile
+    getProfile,
+    changePassword
 } = require('../controllers/userController.js');
 
 module.exports = router;
@@ -19,3 +20,4 @@ router.post('/createUser', createUser);
 router.post('/deleteUser', deleteUser);
 router.post('/createEmployee', createEmployee);
 router.post('/getProfile', getProfile);
+router.post('/changePassword', changePassword);

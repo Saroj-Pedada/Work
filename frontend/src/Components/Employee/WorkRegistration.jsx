@@ -54,7 +54,7 @@ function WorkRegistration() {
   const handleAddWork = async (e) => {
     e.preventDefault();
     try {
-      HttpnInstance.post('/work/registerWork', newWork ).then(() => {
+      HttpnInstance.post('/work/registerWork', newWork).then(() => {
         console.log('Work added successfully');
         alert('Work added successfully');
         setVarAddOverlay(false);
@@ -64,15 +64,12 @@ function WorkRegistration() {
       });
       fetchWork();
       setNewWork({
-        emp_id: '',
-        name: '',
-        phone: '',
+        ...newWork,
         village: '',
         president_name: '',
         president_phone: '',
         cards: 0,
         dateofregistration: '',
-        user_id: ''
       });
     } catch (error) {
       console.log('Error adding work:', error);
@@ -212,46 +209,46 @@ function WorkRegistration() {
       {!varNoData && !varAddOverlay && (
         <div className="relative overflow-hidden sm:rounded-lg mt-10">
           <div className="max-h-96 overflow-auto">
-          <table className="w-full overflow-x-auto  text-sm text-left text-gray-500 notimes:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">Employee ID</th>
-                <th scope="col" className="px-6 py-3">Name</th>
-                <th scope="col" className="px-6 py-3">Phone</th>
-                <th scope="col" className="px-6 py-3">Village</th>
-                <th scope="col" className="px-6 py-3">President Name</th>
-                <th scope="col" className="px-6 py-3">President Phone</th>
-                <th scope="col" className="px-6 py-3">Cards</th>
-                <th scope="col" className="px-6 py-3">Incentive</th>
-                <th scope="col" className="px-6 py-3">Date of Registration</th>
-                <th scope="col" className="px-6 py-3"><button
-                  onClick={() => setVarAddOverlay(true)}
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Add Work
-                </button></th>
-              </tr>
-            </thead>
-            <tbody>
-              {work?.map((work, index) => (
-                <tr key={index} className="bg-white border-b notimes:bg-gray-800 notimes:border-gray-700 hover:bg-gray-50 notimes:hover:bg-gray-600">
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap notimes:text-white">
-                    {work.emp_id}
-                  </th>
-                  <td className="px-6 py-4">{work.name}</td>
-                  <td className="px-6 py-4">{work.phone}</td>
-                  <td className="px-6 py-4">{work.village}</td>
-                  <td className="px-6 py-4">{work.president_name}</td>
-                  <td className="px-6 py-4">{work.president_phone}</td>
-                  <td className="px-6 py-4">{work.cards <= 13 ? work.cards : 13}</td>
-                  <td className="px-6 py-4">{work.cards >= 13 ? work.cards - 13 : 0}</td>
-                  <td className="px-6 py-4">{formatDate(work.dateofregistration)}</td>
-                  <td className="px-6 py-4 text-right">
-                  </td>
+            <table className="w-full overflow-x-auto  text-sm text-left text-gray-500 notimes:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">Employee ID</th>
+                  <th scope="col" className="px-6 py-3">Name</th>
+                  <th scope="col" className="px-6 py-3">Phone</th>
+                  <th scope="col" className="px-6 py-3">Village</th>
+                  <th scope="col" className="px-6 py-3">President Name</th>
+                  <th scope="col" className="px-6 py-3">President Phone</th>
+                  <th scope="col" className="px-6 py-3">Cards</th>
+                  <th scope="col" className="px-6 py-3">Incentive</th>
+                  <th scope="col" className="px-6 py-3">Date of Registration</th>
+                  <th scope="col" className="px-6 py-3"><button
+                    onClick={() => setVarAddOverlay(true)}
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Add Work
+                  </button></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {work?.map((work, index) => (
+                  <tr key={index} className="bg-white border-b notimes:bg-gray-800 notimes:border-gray-700 hover:bg-gray-50 notimes:hover:bg-gray-600">
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap notimes:text-white">
+                      {work.emp_id}
+                    </th>
+                    <td className="px-6 py-4">{work.name}</td>
+                    <td className="px-6 py-4">{work.phone}</td>
+                    <td className="px-6 py-4">{work.village}</td>
+                    <td className="px-6 py-4">{work.president_name}</td>
+                    <td className="px-6 py-4">{work.president_phone}</td>
+                    <td className="px-6 py-4">{work.cards <= 13 ? work.cards : 13}</td>
+                    <td className="px-6 py-4">{work.cards >= 13 ? work.cards - 13 : 0}</td>
+                    <td className="px-6 py-4">{formatDate(work.dateofregistration)}</td>
+                    <td className="px-6 py-4 text-right">
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}

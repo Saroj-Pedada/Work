@@ -4,7 +4,7 @@ const { getIdOfUser } = require('../utils/token');
 const registerWork = (req, res) => {
     const newquery = {
         text: 'INSERT INTO work (id, emp_id, name, phone, village, president_name, president_phone, cards, dateofregistration, active_status, user_id) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, NOW(), TRUE, $8) RETURNING *',
-        values: [req.body.emp_id, req.body.name, req.body.phone, req.body.village, req.body.president_name, req.body.president_phone, req.body.cards, req.body.user_id]
+        values: [req.body.emp_id, req.body.name, req.body.phone, req.body.village, req.body.president_name, req.body.president_phone, req.body.cards, Number(req.body.user_id)]
     }
     pool.query(newquery, (err, result) => {
         if (err) {

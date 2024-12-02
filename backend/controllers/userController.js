@@ -259,6 +259,42 @@ const getProfile = async (req, res) => {
     }
 };
 
+const changePassword = async (req, res) => {
+    try {
+        if (!pool) {
+            throw new Error("Database client is not initialized. Call dbInit first.");
+        }
+        const { id, new_password } = req.body;
+
+        const saltRounds = 10;
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hashedPassword = bcrypt.hashSync(new_password, salt);
+
+        let user;
+        try {
+            const query = `
+                UPDATE users
+                SET password = $2
+                WHERE id = $1 AND active_status = TRUE
+                RETURNING *;
+                `;
+            const values = [id, hashedPassword];
+
+            user = await pool.query(query, values);
+        }
+        catch (err) {
+            console.error("Error changing password:", err);
+            throw err;
+        }
+
+        res.status(200).json({ msg: "Password changed successfully" });
+
+    } catch (err) {
+        console.error("Error changing password:", err);
+        res.status(500).json({ msg: "Internal server error" });
+    }
+};
+
 module.exports = {
     getUsers,
     getEmployees,
@@ -267,4 +303,5 @@ module.exports = {
     createEmployee,
     deleteUser,
     getProfile,
+    changePassword,
 };
