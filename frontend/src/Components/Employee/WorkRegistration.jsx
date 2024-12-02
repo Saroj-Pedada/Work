@@ -14,7 +14,8 @@ function WorkRegistration() {
     president_name: '',
     president_phone: '',
     cards: 0,
-    dateofregistration: ''
+    dateofregistration: '',
+    user_id: ''
   });
 
   const fetchProfile = () => {
@@ -23,7 +24,8 @@ function WorkRegistration() {
         ...newWork,
         name: response.data.name,
         emp_id: response.data.emp_id,
-        phone: response.data.phone
+        phone: response.data.phone,
+        user_id: response.data.id
       })
     })
   }
@@ -35,7 +37,7 @@ function WorkRegistration() {
 
   const fetchWork = async () => {
     try {
-      const response = await HttpnInstance.post('/work/getWorksById', { cookies: Cookies.get('user') });
+      const response = await HttpnInstance.post('/work/getWorksById');
       if (response.data.length === 0) {
         setVarNoData(true);
         setWork(null);
@@ -69,7 +71,8 @@ function WorkRegistration() {
         president_name: '',
         president_phone: '',
         cards: 0,
-        dateofregistration: ''
+        dateofregistration: '',
+        user_id: ''
       });
     } catch (error) {
       console.log('Error adding work:', error);
