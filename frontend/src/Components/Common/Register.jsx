@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import HttpnInstance from "../Api/nodeapi";
-import axios from 'axios';
 
 const RegistrationForm = () => {
   const [step, setStep] = useState('email');
@@ -24,7 +23,7 @@ const RegistrationForm = () => {
     setLoading(true);
     // Simulate OTP sending
     try {
-      const response = await axios.post('http://localhost:3002/send-otp',
+      const response = await HttpnInstance.post('/send-otp',
         { email },
         { withCredentials: true }  // Include credentials (cookies)
       );
@@ -42,7 +41,7 @@ const RegistrationForm = () => {
     setLoading(true);
     // Simulate OTP verification
     try {
-      const response = await axios.post('http://localhost:3002/verify-otp',
+      const response = await HttpnInstance.post('/verify-otp',
         { email, otp },
         { withCredentials: true }  // Include credentials (cookies)
       );
@@ -78,9 +77,10 @@ const RegistrationForm = () => {
 
     try {
       setLoading(true);
-      HttpnInstance.post("/user/createUser", {...formData, email}).then(() => {
+      HttpnInstance.post("/user/createUser", { ...formData, email }).then(() => {
         setLoading(false);
         console.log("Registration Successful. We will contact you soon.");
+        alert("Registration Successful. An email will be sent with credentials to login");
         setFormData({
           FullName: "",
           Address: "",

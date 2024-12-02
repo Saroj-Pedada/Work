@@ -15,5 +15,5 @@ package-lock.json
 /frontend/yarn-error.log*
 
 /backend/.env
-/backend/.env.production
+/backend/.env.prod
 /backend/.env.local

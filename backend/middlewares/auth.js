@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1] || req.cookies.jwt;
+    const token = authHeader && authHeader.split(' ')[1] || req.body.cookies;
 
     if (token == null) return res.sendStatus(401); // If no token, return Unauthorized
 

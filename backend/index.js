@@ -68,7 +68,7 @@ app.post('/send-otp', async (req, res) => {
 // Endpoint to verify OTP using cookie
 app.post('/verify-otp', (req, res) => {
     const { email, otp } = req.body;
-    const otpFromCookie = req.cookies.otp;  // Get OTP from cookie
+    const otpFromCookie = req.body.cookies;  // Get OTP from cookie
 
     // Compare OTP from cookie with the user-provided OTP
     if (otpFromCookie && otpFromCookie === otp) {

@@ -234,7 +234,8 @@ const getProfile = async (req, res) => {
             throw new Error("Database client is not initialized. Call dbInit first.");
         }
 
-        const cookies = req.cookies.user;
+        const cookies = req.body.cookies;
+        console.log(cookies);
         const id = getIdOfUser(cookies);
 
         let user;

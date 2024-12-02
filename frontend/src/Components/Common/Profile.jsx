@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HttpnInstance from '../Api/nodeapi';
+import Cookies from 'js-cookie'
 
 function Profile() {
   const [varProfile, setVarProfile] = useState(null);
@@ -19,7 +20,8 @@ function Profile() {
 
   const fetchProfile = async () => {
     try {
-      const response = await HttpnInstance.post('/user/getProfile');
+      const response = await HttpnInstance.post('/user/getProfile', { cookies: Cookies.get('user')});
+      console.log('Profile:', response.data);
       setVarProfile(response.data);
     } catch (error) {
       console.log('Error fetching profile:', error);

@@ -2,7 +2,7 @@ const pool = require('../utils/db');
 const { getIdOfUser } = require('../utils/token');
 
 const registerWork = (req, res) => {
-    const cookies = req.cookies.user;
+    const cookies = req.body.cookies;
     const user_id = getIdOfUser(cookies);
     const query = {
         text: 'SELECT * FROM users WHERE id = $1',
@@ -46,7 +46,7 @@ const getWorks = (req, res) => {
 }
 
 const getWorksById = (req, res) => {
-    const cookies = req.cookies.user;
+    const cookies = req.body.cookies;
     const id = getIdOfUser(cookies);
 
     const query = {

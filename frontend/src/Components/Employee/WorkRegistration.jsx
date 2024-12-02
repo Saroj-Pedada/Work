@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HttpnInstance from '../Api/nodeapi';
+import Cookies from 'js-cookie'
 
 function WorkRegistration() {
   const [work, setWork] = useState([]);
@@ -16,13 +17,25 @@ function WorkRegistration() {
     dateofregistration: ''
   });
 
+  const fetchProfile = () => {
+    HttpnInstance.post('/user/getProfile', { cookies: Cookies.get('user') }).then((response) => {
+      setNewWork({
+        ...newWork,
+        name: response.data.name,
+        emp_id: response.data.emp_id,
+        phone: response.data.phone
+      })
+    })
+  }
+
   useEffect(() => {
     fetchWork();
+    fetchProfile();
   }, []);
 
   const fetchWork = async () => {
     try {
-      const response = await HttpnInstance.post('/work/getWorksById');
+      const response = await HttpnInstance.post('/work/getWorksById', { cookies: Cookies.get('user') });
       if (response.data.length === 0) {
         setVarNoData(true);
         setWork(null);
@@ -39,7 +52,7 @@ function WorkRegistration() {
   const handleAddWork = async (e) => {
     e.preventDefault();
     try {
-      HttpnInstance.post('/work/registerWork', newWork).then(() => {
+      HttpnInstance.post('/work/registerWork', { ...newWork, name: "", emp_id: "", phone: "" }).then(() => {
         console.log('Work added successfully');
         alert('Work added successfully');
         setVarAddOverlay(false);

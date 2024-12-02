@@ -49,6 +49,7 @@ function Employees() {
         console.log('employee added successfully');
         alert('employee added successfully');
         setVarAddOverlay(false);
+        fetchuser();
       }).catch((error) => {
         alert('Error adding employee');
         console.log('Error adding employee:', error);
@@ -79,8 +80,10 @@ function Employees() {
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Employees</h1>
       </div>
-      {varNoData && (<div className="text-center mt-10 text-2xl font-bold tracking-tight text-gray-900">No Data Found</div>)}
-      {!varNoData && varAddOverlay && (
+      {varNoData && !varAddOverlay && (<div className="text-center mt-10 text-2xl font-bold tracking-tight text-gray-900">
+        <button onClick={() => setVarAddOverlay(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Employee</button>
+      </div>)}
+      {varAddOverlay && (
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-lg">
           <form onSubmit={handleAdduser} className="space-y-6">
             <div>
