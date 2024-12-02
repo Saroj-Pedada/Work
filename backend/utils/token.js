@@ -29,7 +29,7 @@ function getUser(token) {
 function getIdOfUser(token) {
     if (!token) return null;
     try {
-        return jwt.decode(token);
+        return jwt.decode(token).id;
     } catch (error) {
         return null;
     }

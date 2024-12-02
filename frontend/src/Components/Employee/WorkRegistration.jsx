@@ -97,7 +97,7 @@ function WorkRegistration() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       {!varNoData && <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Work Registration</h1>
       </div>}
@@ -207,7 +207,8 @@ function WorkRegistration() {
         </div>
       )}
       {!varNoData && !varAddOverlay && (
-        <div className="relative shadow-md sm:rounded-lg mt-10">
+        <div className="relative overflow-hidden sm:rounded-lg mt-10">
+          <div className="max-h-96 overflow-auto">
           <table className="w-full overflow-x-auto  text-sm text-left text-gray-500 notimes:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
               <tr>
@@ -248,6 +249,7 @@ function WorkRegistration() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </div>
