@@ -84,7 +84,7 @@ function Work() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       {/* <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Work Registration</h1>
       </div> */}
@@ -183,39 +183,41 @@ function Work() {
         </div>
       )}
       {!varNoData && !varAddOverlay && (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
-          <table className="w-full text-sm text-left text-gray-500 notimes:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">Employee ID</th>
-                <th scope="col" className="px-6 py-3">Name</th>
-                <th scope="col" className="px-6 py-3">Phone</th>
-                <th scope="col" className="px-6 py-3">Village</th>
-                <th scope="col" className="px-6 py-3">President Name</th>
-                <th scope="col" className="px-6 py-3">President Phone</th>
-                <th scope="col" className="px-6 py-3">Cards</th>
-                <th scope="col" className="px-6 py-3">Incentive</th>
-                <th scope="col" className="px-6 py-3">Date of Registration</th>
-              </tr>
-            </thead>
-            <tbody>
-              {work?.map((work, index) => (
-                <tr key={index} className="bg-white border-b notimes:bg-gray-800 notimes:border-gray-700 hover:bg-gray-50 notimes:hover:bg-gray-600">
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap notimes:text-white">
-                    {work.emp_id}
-                  </th>
-                  <td className="px-6 py-4">{work.name}</td>
-                  <td className="px-6 py-4">{work.phone}</td>
-                  <td className="px-6 py-4">{work.village}</td>
-                  <td className="px-6 py-4">{work.president_name}</td>
-                  <td className="px-6 py-4">{work.president_phone}</td>
-                  <td className="px-6 py-4">{work.cards <= 13 ? work.cards : 13}</td>
-                  <td className="px-6 py-4">{work.cards >= 13 ? work.cards - 13 : 0}</td>
-                  <td className="px-6 py-4">{formatDate(work.dateofregistration)}</td>
+        <div className="relative overflow-hidden sm:rounded-lg mt-10">
+          <div className="max-h-96 overflow-auto">
+            <table className="w-full text-sm text-left text-gray-500 notimes:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">Employee ID</th>
+                  <th scope="col" className="px-6 py-3">Name</th>
+                  <th scope="col" className="px-6 py-3">Phone</th>
+                  <th scope="col" className="px-6 py-3">Village</th>
+                  <th scope="col" className="px-6 py-3">President Name</th>
+                  <th scope="col" className="px-6 py-3">President Phone</th>
+                  <th scope="col" className="px-6 py-3">Cards</th>
+                  <th scope="col" className="px-6 py-3">Incentive</th>
+                  <th scope="col" className="px-6 py-3">Date of Registration</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {work?.map((work, index) => (
+                  <tr key={index} className="bg-white border-b notimes:bg-gray-800 notimes:border-gray-700 hover:bg-gray-50 notimes:hover:bg-gray-600">
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap notimes:text-white">
+                      {work.emp_id}
+                    </th>
+                    <td className="px-6 py-4">{work.name}</td>
+                    <td className="px-6 py-4">{work.phone}</td>
+                    <td className="px-6 py-4">{work.village}</td>
+                    <td className="px-6 py-4">{work.president_name}</td>
+                    <td className="px-6 py-4">{work.president_phone}</td>
+                    <td className="px-6 py-4">{work.cards <= 13 ? work.cards : 13}</td>
+                    <td className="px-6 py-4">{work.cards >= 13 ? work.cards - 13 : 0}</td>
+                    <td className="px-6 py-4">{formatDate(work.dateofregistration)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

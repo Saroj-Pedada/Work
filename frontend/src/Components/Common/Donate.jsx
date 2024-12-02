@@ -64,23 +64,10 @@ function Donate() {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await HttpnInstance.post('/donation/deleteDonation', { id });
-      setDonations(donations.filter((donation) => donation.id !== id));
-    } catch (error) {
-      console.error('Error deleting donation:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDonations();
-  }, []);
-
   return loading ? (
     <div className="text-center mt-10">Loading...</div>
   ) : (
-    <div className="container mx-auto px-4">
+    <div className= "mt-20 flex flex-col items-center justify-center mx-auto px-4 w-full min-h-screen">
       <h1 className="text-2xl font-bold text-center my-6">Donations</h1>
 
       {addOverlay ? (

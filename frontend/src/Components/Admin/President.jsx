@@ -75,7 +75,7 @@ function President() {
     return loading ? (
         <LoadingAnim />
     ) : (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="flex min-h-full w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-lg">
                 <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
                     {varNoData ? "No Data Found" : "Presidents"}
@@ -222,41 +222,43 @@ function President() {
             )}
 
             {!varAddOverlay && !varNoData && (
-                <div className="mt-10 mx-auto flex flex-col items-center w-full px-4">
-                    <div className="w-full overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200 border">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Village</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taluka</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">District</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gramsevak</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                                {varPresidents.map((president) => (
-                                    <tr key={president.id} className="hover:bg-gray-50">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.president_name}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.president_phone}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.village}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.taluka}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.district}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.gramsevak_name}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button
-                                                onClick={() => handleDelete(president.id)}
-                                                className="text-red-600 hover:text-red-900"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
+                <div className="relative overflow-hidden sm:rounded-lg mt-10">
+                    <div className="max-h-96 overflow-auto">
+                        <div className="w-full overflow-x-auto">
+                            <table className="min-w-full divide-y divide-gray-200 border">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Village</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taluka</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">District</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gramsevak</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {varPresidents.map((president) => (
+                                        <tr key={president.id} className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.president_name}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.president_phone}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.village}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.taluka}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.district}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{president.gramsevak_name}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <button
+                                                    onClick={() => handleDelete(president.id)}
+                                                    className="text-red-600 hover:text-red-900"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             )}

@@ -67,11 +67,10 @@ app.post('/send-otp', async (req, res) => {
 
 // Endpoint to verify OTP using cookie
 app.post('/verify-otp', (req, res) => {
-    const { email, otp } = req.body;
-    const otpFromCookie = req.body.cookies;  // Get OTP from cookie
+    const { email, otp, cookies } = req.body;
 
     // Compare OTP from cookie with the user-provided OTP
-    if (otpFromCookie && otpFromCookie === otp) {
+    if (cookies && cookies === otp) {
         res.status(200).send('OTP verified successfully');
         delete otpStore[email];  // OTP used, so delete it
     } else {

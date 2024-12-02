@@ -89,7 +89,7 @@ function Registrations() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <h1 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Registrations</h1>
       </div>
@@ -185,41 +185,46 @@ function Registrations() {
         </div>
       )}
       {!varNoData && !varAddOverlay && (
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
-          <table className="w-full text-sm text-left text-gray-500 notimes:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">Name</th>
-                <th scope="col" className="px-6 py-3">Email</th>
-                <th scope="col" className="px-6 py-3">Phone</th>
-                <th scope="col" className="px-6 py-3">Village</th>
-                <th scope="col" className="px-6 py-3">Address</th>
-                <th scope="col" className="px-6 py-3">Taluka</th>
-                <th scope="col" className="px-6 py-3">District</th>
-                <th scope="col" className="px-6 py-3">Aadhaar</th>
-                <th scope="col" className="px-6 py-3">Gender</th>
-                <th scope="col" className="px-6 py-3">Age</th>
-                <th scope="col" className="px-6 py-3">Date of Registration</th>
-              </tr>
-            </thead>
-            <tbody>
-              {user?.map((user, index) => (
-                <tr key={index} className="bg-white border-b notimes:bg-gray-800 notimes:border-gray-700 hover:bg-gray-50 notimes:hover:bg-gray-600">
-                  <td className="px-6 py-4">{user.name}</td>
-                  <td className="px-6 py-4">{user.email}</td>
-                  <td className="px-6 py-4">{user.phone}</td>
-                  <td className="px-6 py-4">{user.village}</td>
-                  <td className="px-6 py-4">{user.address}</td>
-                  <td className="px-6 py-4">{user.taluka}</td>
-                  <td className="px-6 py-4">{user.district}</td>
-                  <td className="px-6 py-4">{user.aadhar}</td>
-                  <td className="px-6 py-4">{user.gender}</td>
-                  <td className="px-6 py-4">{user.age}</td>
-                  <td className="px-6 py-4">{formatDate(user.dateofregistration)}</td>
+        <div className="relative overflow-hidden sm:rounded-lg mt-10">
+          <div className="max-h-96 overflow-auto">
+            <table className="w-full text-sm text-left text-gray-500 notimes:text-gray-400">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 notimes:bg-gray-700 notimes:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">Name</th>
+                  <th scope="col" className="px-6 py-3">Email</th>
+                  <th scope="col" className="px-6 py-3">Phone</th>
+                  <th scope="col" className="px-6 py-3">Village</th>
+                  <th scope="col" className="px-6 py-3">Address</th>
+                  <th scope="col" className="px-6 py-3">Taluka</th>
+                  <th scope="col" className="px-6 py-3">District</th>
+                  <th scope="col" className="px-6 py-3">Aadhaar</th>
+                  <th scope="col" className="px-6 py-3">Gender</th>
+                  <th scope="col" className="px-6 py-3">Age</th>
+                  <th scope="col" className="px-6 py-3">Date of Registration</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {user?.map((user, index) => (
+                  <tr
+                    key={index}
+                    className="bg-white border-b notimes:bg-gray-800 notimes:border-gray-700 hover:bg-gray-50 notimes:hover:bg-gray-600"
+                  >
+                    <td className="px-6 py-4">{user.name}</td>
+                    <td className="px-6 py-4">{user.email}</td>
+                    <td className="px-6 py-4">{user.phone}</td>
+                    <td className="px-6 py-4">{user.village}</td>
+                    <td className="px-6 py-4">{user.address}</td>
+                    <td className="px-6 py-4">{user.taluka}</td>
+                    <td className="px-6 py-4">{user.district}</td>
+                    <td className="px-6 py-4">{user.aadhar}</td>
+                    <td className="px-6 py-4">{user.gender}</td>
+                    <td className="px-6 py-4">{user.age}</td>
+                    <td className="px-6 py-4">{formatDate(user.dateofregistration)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

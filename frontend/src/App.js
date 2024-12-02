@@ -59,7 +59,7 @@ function App() {
     }
   };
 
-  return <div className="min-h-screen flex items-center justify-center">{renderDashboard()}</div>;
+  return <div className="min-h-screen w-full overflow-hidden flex">{renderDashboard()}</div>;
 }
 
 export default App;

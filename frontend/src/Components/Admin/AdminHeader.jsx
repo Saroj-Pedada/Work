@@ -44,7 +44,7 @@ function AdminHeader(props) {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <div key={item.name} onClick={() => props.setVarAdminRoles(item.name.toLowerCase())} className="text-sm/6 font-semibold text-gray-900">
+              <div key={item.name} onClick={() => { setMobileMenuOpen(false) ; props.setVarAdminRoles(item.name.toLowerCase()) }} className="text-sm/6 font-semibold text-gray-900">
                 {item.name}
               </div>
             ))}

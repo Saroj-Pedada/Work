@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import HttpnInstance from "../Api/nodeapi";
+import Cookies from 'js-cookie'
 
 const RegistrationForm = () => {
+  const [cookies, setCookies] = useState(null);
   const [step, setStep] = useState('email');
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
@@ -28,6 +30,7 @@ const RegistrationForm = () => {
         { withCredentials: true }  // Include credentials (cookies)
       );
       console.log(response.data);
+      setCookies(Cookies.get('otp'));
       setLoading(false);
       setStep('otp');
     } catch (error) {
@@ -42,8 +45,7 @@ const RegistrationForm = () => {
     // Simulate OTP verification
     try {
       const response = await HttpnInstance.post('/verify-otp',
-        { email, otp },
-        { withCredentials: true }  // Include credentials (cookies)
+        { email, otp , cookies },
       );
       console.log(response.data);
       setLoading(false);
@@ -118,14 +120,14 @@ const RegistrationForm = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center w-full h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className="flex items-center justify-center w-full h-screen p-4">
       <div className="w-full max-w-md p-6 bg-white rounded-lg">
         <h2 className="text-2xl font-bold text-center mb-6">
           {step === 'email' && ""}
