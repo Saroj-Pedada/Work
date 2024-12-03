@@ -21,7 +21,7 @@ function Header(props) {
                             <span className="sr-only">CSM Multipurpose Organisation</span>
                             <img
                                 alt=""
-                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                                src="favicon.ico"
                                 className="h-8 w-auto"
                             />
                         </a>
@@ -57,7 +57,7 @@ function Header(props) {
                                 <span className="sr-only">CSM Multipurpose Organisation</span>
                                 <img
                                     alt=""
-                                    src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                                    src="favicon.ico"
                                     className="h-8 w-auto"
                                 />
                             </a>

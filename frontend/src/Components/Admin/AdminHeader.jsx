@@ -27,7 +27,7 @@ function AdminHeader(props) {
               <span className="sr-only">CSM Multipurpose Organisation</span>
               <img
                 alt=""
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                src="favicon.ico"
                 className="h-8 w-auto"
               />
             </div>
@@ -63,7 +63,7 @@ function AdminHeader(props) {
                 <span className="sr-only">CSM Multipurpose Organisation</span>
                 <img
                   alt=""
-                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                  src="favicon.ico"
                   className="h-8 w-auto"
                 />
               </div>
@@ -91,7 +91,7 @@ function AdminHeader(props) {
                 </div>
                 <div className="py-6">
                   <div
-                    onClick={() => props.setUserRole('login')}
+                    onClick={() => { Cookies.remove('user'); props.setUserRole('login') }}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
                     Log out
