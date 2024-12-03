@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import HttpnInstance from "../Api/nodeapi";
-import Cookies from 'js-cookie'
 
 const RegistrationForm = () => {
-  const [cookies, setCookies] = useState(null);
   const [step, setStep] = useState('email');
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
@@ -27,10 +25,9 @@ const RegistrationForm = () => {
     try {
       const response = await HttpnInstance.post('/send-otp',
         { email },
-        { withCredentials: true }  // Include credentials (cookies)
+        { withCredentials: true }
       );
       console.log(response.data);
-      setCookies(Cookies.get('otp'));
       setLoading(false);
       setStep('otp');
     } catch (error) {
@@ -45,7 +42,7 @@ const RegistrationForm = () => {
     // Simulate OTP verification
     try {
       const response = await HttpnInstance.post('/verify-otp',
-        { email, otp , cookies },
+        { email, otp },
       );
       console.log(response.data);
       setLoading(false);

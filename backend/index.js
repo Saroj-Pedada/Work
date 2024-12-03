@@ -14,6 +14,7 @@ const donationRouter = require('./routes/donationRouter');
 const presidentRouter = require('./routes/presidentRouter');
 const { createTables } = require('./utils/db');
 const bodyParser = require("body-parser");
+let otpStore = {};
 
 app.use(cors({
     origin: [
@@ -52,25 +53,19 @@ app.post('/send-otp', async (req, res) => {
     const { email } = req.body;
     try {
         const otp = await sendOTP(email);
-        res.cookie('otp', otp, {
-            httpOnly: false,
-            maxAge: 15 * 60 * 1000,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None'
-        });
-
+        otpStore[email] = otp; // Store OTP in memory
         res.status(200).send('OTP sent successfully');
     } catch (err) {
         res.status(500).send('Error sending OTP');
     }
 });
 
-// Endpoint to verify OTP using cookie
+// Endpoint to verify OTP
 app.post('/verify-otp', (req, res) => {
-    const { email, otp, cookies } = req.body;
+    const { email, otp } = req.body;
 
-    // Compare OTP from cookie with the user-provided OTP
-    if (cookies && cookies === otp) {
+    // Compare OTP from store with the user-provided OTP
+    if (otpStore[email] && otpStore[email] === otp) {
         res.status(200).send('OTP verified successfully');
         delete otpStore[email];  // OTP used, so delete it
     } else {
