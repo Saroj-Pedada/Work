@@ -37,7 +37,7 @@ function WorkRegistration() {
 
   const fetchWork = async () => {
     try {
-      const response = await HttpnInstance.post('/work/getWorksById');
+      const response = await HttpnInstance.post('/work/getWorksById', { cookies: Cookies.get('user') });
       if (response.data.length === 0) {
         setVarNoData(true);
         setWork(null);
